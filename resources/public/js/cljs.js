@@ -388,6 +388,13 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  this.stack = Error().stack || "";
+  a && (this.message = "" + a)
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -708,13 +715,6 @@ goog.string.toSelectorCaseCache_ = {};
 goog.string.toSelectorCase = function(a) {
   return goog.string.toSelectorCaseCache_[a] || (goog.string.toSelectorCaseCache_[a] = ("" + a).replace(/([A-Z])/g, "-$1").toLowerCase())
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  this.stack = Error().stack || "";
-  a && (this.message = "" + a)
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -12693,11 +12693,6 @@ cljs.core.UUID.prototype.toString = function() {
   return cljs.core.pr_str.call(null, this)
 };
 cljs.core.UUID;
-var hello_clojurescript = {handle_click:function() {
-  return alert("Hello!")
-}};
-hello_clojurescript.clickable = document.getElementById("clickable");
-hello_clojurescript.clickable.addEventListener("click", hello_clojurescript.handle_click);
 var s_system = {grammars:{}};
 s_system.grammars.tree_cmd_map = cljs.core.PersistentArrayMap.fromArrays(["F", "+", "-", "[", "]"], ["\ufdd0'forward", "\ufdd0'left", "\ufdd0'right", "\ufdd0'push", "\ufdd0'pop"]);
 s_system.grammars.axial_tree_a = cljs.core.ObjMap.fromObject(["\ufdd0'start", "\ufdd0'rules", "\ufdd0'angle", "\ufdd0'constants", "\ufdd0'cmd-map"], {"\ufdd0'start":cljs.core.PersistentVector.fromArray(["F"], !0), "\ufdd0'rules":cljs.core.PersistentArrayMap.fromArrays(["F"], ["F[+F]F[-F]F"]), "\ufdd0'angle":25.7, "\ufdd0'constants":cljs.core.PersistentHashSet.fromArray(["F", "+", "-", "[", "]"]), "\ufdd0'cmd-map":s_system.grammars.tree_cmd_map});
@@ -12709,3 +12704,8 @@ s_system.grammars.dragon_curve = cljs.core.ObjMap.fromObject(["\ufdd0'constants"
 "\ufdd0'right"])});
 s_system.grammars.sierpinski_triangle = cljs.core.ObjMap.fromObject(["\ufdd0'constants", "\ufdd0'start", "\ufdd0'rules", "\ufdd0'angle", "\ufdd0'cmd-map"], {"\ufdd0'constants":cljs.core.PersistentHashSet.fromArray(["+", "-"]), "\ufdd0'start":cljs.core.PersistentVector.fromArray(["A"], !0), "\ufdd0'rules":cljs.core.PersistentArrayMap.fromArrays(["A", "B"], ["B-A-B", "A+B+A"]), "\ufdd0'angle":60, "\ufdd0'cmd-map":cljs.core.PersistentArrayMap.fromArrays(["A", "B", "+", "-"], ["\ufdd0'forward", "\ufdd0'forward", 
 "\ufdd0'left", "\ufdd0'right"])});
+s_system.client = {};
+console.log("HELLO");
+s_system.client.handle_click = function() {
+  return alert("Hello!")
+};

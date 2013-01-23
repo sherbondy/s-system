@@ -8,18 +8,7 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body
-   (str "<!DOCTYPE html>"
-        "<html>"
-        "<head>"
-        "<link rel=\"stylesheet\" href=\"css/page.css\" />"
-        "</head>"
-        "<body>"
-        "<div>"
-        "<p id=\"clickable\">Click me!</p>"
-        "</div>"
-        "<script src=\"js/cljs.js\"></script>"
-        "</body>"
-        "</html>")})
+   (slurp "resources/public/index.html")})
 
 (defn handler [request]
   (render-app))
@@ -30,4 +19,7 @@
 
 (defn -main [& args]
   (jetty/run-jetty app {:port 3000}))
+
+;; (-main)
+
 
