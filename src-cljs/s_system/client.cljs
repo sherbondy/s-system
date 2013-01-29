@@ -1,6 +1,7 @@
 (ns s-system.client
-  (:require [s-system.grammars :as gram]
-            [s-system.display :as d]
+  (:use [s-system.core :only [gen-commands]])
+  (:require [s-system.display :as d]
+            [s-system.grammars :as gram]
             [clojure.browser.repl :as repl]))
 
 ;; for rhino:

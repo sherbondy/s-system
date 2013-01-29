@@ -17978,6 +17978,6 @@ s_system.client = {};
 clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
 console.log("Hello there.");
 cljs.core.str(s_system.grammars.axial_tree_a);
-cljs.core.str(s_system.client.gen_commands.call(null, s_system.grammars.axial_tree_a, 1));
+cljs.core.str(s_system.core.gen_commands.call(null, s_system.grammars.axial_tree_a, 1));
 s_system.client.canvas = document.getElementById("canvas");
 s_system.display.display.call(null, s_system.display.tree_a_applet, s_system.client.canvas);
