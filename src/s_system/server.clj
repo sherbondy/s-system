@@ -1,8 +1,7 @@
 (ns s-system.server
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.resource :as resources]
-            [ring.util.response :as response])
-  (:gen-class))
+            [ring.util.response :as response]))
 
 (defn render-app []
   {:status 200
@@ -15,11 +14,6 @@
 
 (def app 
   (-> handler
-    (resources/wrap-resource "public")))
+      (resources/wrap-resource "public")))
 
-(defn -main [& args]
-  (jetty/run-jetty app {:port 3000}))
-
-;; (-main)
-
-
+(defonce server (jetty/run-jetty #'app {:port 3000 :join? false}))
