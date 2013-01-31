@@ -14,14 +14,15 @@
 
 (repl/connect "http://localhost:9000/repl")
 
-(.log js/console "Hello there.")
+(.log js/console "Hello there.")n
 
 ;; core from l-system-fun
 
 (str gram/axial-tree-a)
 
 ;; have slider to transition between memoized production lengths
-(str (gen-commands gram/axial-tree-a 1))
+(str (gen-commands gram/axial-tree-a 2))
 
 (def canvas (.getElementById js/document "canvas"))
-(d/display d/tree-a-applet canvas)
+
+(d/display d/tree-c-applet canvas)
