@@ -1,5 +1,5 @@
-# S-System
-## A ClojureScript L-system implementation with Turtle Graphics
+# S-System (A Virtual Laboratory in Botany)
+## ClojureScript L-system implementation with Turtle Graphics
 
 ## Overview
 
@@ -20,7 +20,7 @@ The current version is a hastily-assembled copy of Scott Lowe's [l-system-fun](h
 
 ## Learnability/Explorability
 
-I intend to make Bret proud. The system will be self documenting and will include within itself an interactive tutorial to the world of L-systems. I intend to build an L-system editor tool with powerful constructs for examining how a system evolves over time. It will also be valuable to display many productions side-by-side for Stochastic systems to get a feel for the variety. Tasks like tweaking angles or adjusting colors should be completely painless, and *everything* in the API should be visually manipulable/explorable. Getting an intuition for how replacement rules correspond to geometric structure is crucial. I have not succeeded unless I've built an environment where *discovery* is a natural consequence of playing with the system.
+I intend to make [Bret](http://www.worrydream.com) proud. The system will be self documenting and will include within itself an interactive tutorial to the world of L-systems. This must _not_ just be a tool for people who already claim to understand how L-systems work. The program should be both teacher and playground. It ought to include an L-system editor with powerful constructs for examining how a system evolves over time. It will also be valuable to display many Stochastic productions either side-by-side or onion-skinned to get a feel for the variety. Tasks like tweaking angles or adjusting colors should be completely painless, and essentially *everything* in the API should be visually manipulable/explorable. Getting an intuition for how replacement rules map to geometric structure is crucial. I have not succeeded unless I've built an environment where *discovery* is a natural consequence of playing with the system.
 
 If the timing works out, this whole system might find itself wrapped up inside of Light Table as an editing mode. *An IDE for plants* :P
 
@@ -29,9 +29,12 @@ If the timing works out, this whole system might find itself wrapped up inside o
 Tons of people on the internet are fascinated by L-systems. It's easy to see why: you can produce incredibly organic, aesthetically appealing results with just a few hours work. That said, there are hundreds, maybe thousands of reference L-system implementations of varying degrees of completeness. I should take heed of and respect these works and draw inspiration from them when appropriate. Below I'll maintain a list of all implementations and writings that have (directly or indirectly) influenced the design of this system:
 
 ### Implementations
-
+- L-system-fun
+- *A virtual laboratory* (See pages 193-200 of ABoP)
 
 ### Writings
+
+- The Algorithmic Beauty of Plants
 
 
 ## Random Thoughts
@@ -40,6 +43,8 @@ I've read about using L-systems to procedurally generate music. It would be incr
 
 Could L-systems be applied to other media? I know they're related to cellular automata in some respects. Could an L-system somehow be manifest as an AI / an active agent by assigning behaviors to different characters in a production?
 
+L-systems + Logic Programming = Profit?
+
 I'm sure someone has toyed with this idea, but what if you *evolved* an L-system? Randomly mutate the production rules themselves (this is different from Stochastic L-systems!) each generation, and have some sort of metric for fitness, e.g. height, branching factor, flower yield, etc.
 
 This idea touches on something that's been brewing in my mind for a while. Can you teach a computer what beauty is? Or, posed another way, can you use machine-learning to determine what our human minds (in the aggregrate) discern as beauty? Can visual beauty be quantified? Implementation would be the same as the above paragraph, but the fitness condition would be human preference.
@@ -47,7 +52,6 @@ This idea touches on something that's been brewing in my mind for a while. Can y
 With sufficient realism (raytracing on a server), maybe we could teach a computer how to render, say, flowers, or entire plants, starting from very simple axioms. Wouldn't that be something?
 
 That's enough waxing philosophic for now.
-
 
 ## Timeline
 
