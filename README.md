@@ -5,7 +5,7 @@
 
 My goal is to create the most comprehensive client-side L-system implementation available, without sacrificing API clarity. I also intend for the system to be genuinely interactive, explorable, and self-documenting. This will take some time.
 
-The current version is a hastily-assembled port of Scott Lowe's [l-system-fun](http://www.scottlowe.eu/blog/2012/03/04/l-system-axial-trees-with-clojure/) project. I've written a tiny subset of the requisite 2D drawing code, but intend to make a faithful port of Quil to ClojureScript. It should be relatively straightforward since Processing.js is a pretty faithful recreation of its JVM sister. I may even be able to fork and dalap-ify Quil. We'll see. Another possibility is sticking with the Canvas API and implementing not-quite-quil.
+The current version is a hastily-assembled copy of Scott Lowe's [l-system-fun](http://www.scottlowe.eu/blog/2012/03/04/l-system-axial-trees-with-clojure/) project. I've written a tiny subset of the requisite 2D drawing code, but intend to make a bona-fide port of Quil to ClojureScript. It should be relatively straightforward since Processing.js is a pretty faithful recreation of its JVM sister. I may even be able to fork and dalap-ify Quil. We'll see. Another possibility is sticking with the Canvas API and implementing not-quite-quil.
 
 ## Obvious Next Steps
 
