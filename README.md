@@ -24,6 +24,10 @@ I intend to make [Bret](http://www.worrydream.com) proud. The system will be sel
 
 If the timing works out, this whole system might find itself wrapped up inside of Light Table as an editing mode. *An IDE for plants* :P
 
+## Why ClojureScript, Why the Browser?
+
+Hypertext is a powerful idea. Making this project live on the web makes certain extensions natural and straightforward. E.g. sharing your creations over the internet, embedding them in other web-pages or as components in games becomes trivial. Further, this opens up the possibility of offloading work (e.g. Raytracing) to other computers. All of these things are certainly achievable with other tools, but this seems to me to be the most natural way to edge towards the vision of the virtual laboratory.
+
 ## Inspiration/Reference
 
 Tons of people on the internet are fascinated by L-systems. It's easy to see why: you can produce incredibly organic, aesthetically appealing results with just a few hours work. That said, there are hundreds, maybe thousands of reference L-system implementations of varying degrees of completeness. I should take heed of and respect these works and draw inspiration from them when appropriate. Below I'll maintain a list of all implementations and writings that have (directly or indirectly) influenced the design of this system:
