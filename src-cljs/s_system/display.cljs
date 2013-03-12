@@ -46,7 +46,6 @@
    (map #(apply line %) coordinates)))
 
 (defn- setup [coordinates]
-  (.log js/console "setting up")
   (background 255 255 255)
   (stroke-color 0 160 0)
   (stroke-weight 1.4)

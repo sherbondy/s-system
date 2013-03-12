@@ -2,21 +2,16 @@
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [org.clojure/clojurescript "0.0-1552"]
-
-                 [com.cemerick/piggieback "0.0.2"
-                  :exclusions [org.clojure/clojurescript]]
-
                  [ring "1.1.6"]
-                 [quil "1.6.0"]]
+                 [quil "1.6.0"]
+                 
+                 [jayq "2.3.0"]
+                 [prismatic/dommy "0.0.2"]]
 
-;; make quil-cljs
   :plugins [[lein-cljsbuild "0.3.0"]]
-  :source-paths ["src"]
-
-  :repl-options {
-    :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]
-  }
+  :source-paths ["src", "src-cljs",
+                 "comp/clojurescript/src/clj",
+                 "comp/clojurecript/src/cljs"]
 
   :cljsbuild {
     :builds
@@ -25,7 +20,6 @@
         :compiler
         {:output-to "resources/public/js/main.js"
          :optimizations :simple
-         :pretty-print true}
-        :jar true}]}
+         :pretty-print true}}]}
 
   :main s-system.server)
