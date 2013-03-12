@@ -2,15 +2,37 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="/css/page.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/three.js"></script>
     <script type="text/javascript" src="/mathjax/MathJax.js?config=default"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <script type='text/javascript' id='lt_ws' src='http://localhost:8833/socket.io/lighttable/ws.js'></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        jax: ["input/TeX", "output/HTML-CSS"],
+        displayAlign: "left"
+      });
+    </script>
+    
   </head>
   <body>
-    <canvas id="plants">
-    </canvas>
+    <div id="slides">
+      <div class="slide active">
+        <figure>
+          \begin{equation}
+          p_0 : A(100, \omega_0) \\
+          p_1 : A(s, \omega) : s \geq min \rightarrow \\
+            \hspace16ex!(\omega)F(s) \\
+            \hspace16ex[+(\alpha_1) / (\phi_1) A (s \times r_1, \omega \times q^{e})] \\
+            \hspace16ex[+(\alpha_2) / (\phi_2) A (s \times r_2, \omega \times (1-q)^{e})]
+          \end{equation}
+        </figure>
+      </div>
+      
+      <div class="slide">
+        <img src="/img/trees.png" width="auto" height="100%">
+      </div>
+    </div>
   </body>
 </html>

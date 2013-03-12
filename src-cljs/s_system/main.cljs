@@ -1,5 +1,8 @@
 (ns s-system.main
+  (:use [jayq.util :only [log]])
+  (:require-macros [jayq.macros :as jm])
   (:require [jayq.core :as jq]
             [s-system.slideshow :as ss]))
 
-(js/alert "hi")
+(jm/ready
+  (log "hi"))

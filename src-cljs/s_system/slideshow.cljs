@@ -6,11 +6,36 @@
 
 ;; fullscreen
 (def full-key 102)
+(def left-key 37)
+(def right-key 39)
 
 (defn fullscreen [e]
-  (.requestFullScreen e))
+  (.webkitRequestFullScreen e))
 
-(jq/on ($ js/window) "keypress"
+(def current-slide (atom 0))
+
+(add-watch current-slide :transition 
+  (fn [k r o n]
+    (doseq [num [o n]]
+      (-> ($ ".slide")
+        (.eq num)
+        (jq/toggle-class "active")))))
+
+(defn prev-slide []
+  (if (> @current-slide 0)
+    (swap! current-slide dec)))
+
+(defn next-slide []
+  (if (< @current-slide (dec (.-length ($ ".slide"))))
+    (swap! current-slide inc)))
+
+(jq/on ($ js/window) "keyup"
     (fn [e]
-      (if (= (.-which e) full-key)
-        (js/alert "full"))))
+      (condp = (.-which e)
+        full-key  (fullscreen (aget ($ "body") 0))
+        left-key  (prev-slide)
+        right-key (next-slide)
+        false)))
+
+(jm/ready
+ (reset! current-slide 0))

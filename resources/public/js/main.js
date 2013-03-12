@@ -14446,11 +14446,33 @@ jayq.core.ajax_m = cljs.core.ObjMap.fromObject(["\ufdd0:return", "\ufdd0:bind", 
 }, "\ufdd0:zero":cljs.core.identity});
 s_system.slideshow = {};
 s_system.slideshow.full_key = 102;
+s_system.slideshow.left_key = 37;
+s_system.slideshow.right_key = 39;
 s_system.slideshow.fullscreen = function(a) {
-  return a.requestFullScreen()
+  return a.webkitRequestFullScreen()
 };
-jayq.core.on.call(null, jayq.core.$.call(null, window), "keypress", function(a) {
-  return cljs.core._EQ_.call(null, a.which, s_system.slideshow.full_key) ? alert("full") : null
+s_system.slideshow.current_slide = cljs.core.atom.call(null, 0);
+cljs.core.add_watch.call(null, s_system.slideshow.current_slide, "\ufdd0:transition", function(a, b, c, d) {
+  for(a = cljs.core.seq.call(null, cljs.core.PersistentVector.fromArray([c, d], !0));;) {
+    if(a) {
+      b = cljs.core.first.call(null, a), jayq.core.toggle_class.call(null, jayq.core.$.call(null, ".slide").eq(b), "active"), a = cljs.core.next.call(null, a)
+    }else {
+      return null
+    }
+  }
+});
+s_system.slideshow.prev_slide = function() {
+  return 0 < cljs.core.deref.call(null, s_system.slideshow.current_slide) ? cljs.core.swap_BANG_.call(null, s_system.slideshow.current_slide, cljs.core.dec) : null
+};
+s_system.slideshow.next_slide = function() {
+  return cljs.core.deref.call(null, s_system.slideshow.current_slide) < jayq.core.$.call(null, ".slide").length - 1 ? cljs.core.swap_BANG_.call(null, s_system.slideshow.current_slide, cljs.core.inc) : null
+};
+jayq.core.on.call(null, jayq.core.$.call(null, window), "keyup", function(a) {
+  var b = cljs.core._EQ_, a = a.which;
+  return b.call(null, s_system.slideshow.full_key, a) ? s_system.slideshow.fullscreen.call(null, jayq.core.$.call(null, "body")[0]) : b.call(null, s_system.slideshow.left_key, a) ? s_system.slideshow.prev_slide.call(null) : b.call(null, s_system.slideshow.right_key, a) ? s_system.slideshow.next_slide.call(null) : !1
+});
+jayq.core.document_ready.call(null, function() {
+  return cljs.core.reset_BANG_.call(null, s_system.slideshow.current_slide, 0)
 });
 s_system.display = {};
 s_system.display._STAR_ctx_STAR_ = null;
@@ -14563,4 +14585,7 @@ s_system.display.triangle_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", 
   return s_system.display.setup.call(null, s_system.core.gen_coords.call(null, s_system.grammars.sierpinski_triangle, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([80, 360], !0), "\ufdd0:n-productions":6, "\ufdd0:line-length":4, "\ufdd0:start-angle":90})))
 }});
 s_system.main = {};
-alert("hi");
+jayq.core.document_ready.call(null, function() {
+  MathJax.Hub.Config(cljs.core.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0:displayAlign"], {"\ufdd0:displayAlign":"left"})));
+  return jayq.util.log.call(null, "hi")
+});
