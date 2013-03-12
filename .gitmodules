@@ -1,0 +1,9 @@
+[submodule "resources/public/mathjax"]
+	path = resources/public/mathjax
+	url = git://github.com/mathjax/MathJax.git
+[submodule "comp/clojurescript"]
+	path = comp/clojurescript
+	url = git://github.com/clojure/clojurescript.git
+[submodule "resources/public/tangle"]
+	path = resources/public/tangle
+	url = git@github.com:worrydream/Tangle.git
