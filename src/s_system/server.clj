@@ -1,6 +1,7 @@
 (ns s-system.server
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.resource :as resources]
+            [ring.middleware.reload :as reload]
             [ring.util.response :as response]))
 
 (defn render-app []
@@ -14,6 +15,7 @@
 
 (def app 
   (-> handler
-      (resources/wrap-resource "public")))
+      (resources/wrap-resource "public")
+      (reload/wrap-reload)))
 
 (defonce server (jetty/run-jetty #'app {:port 3000 :join? false}))

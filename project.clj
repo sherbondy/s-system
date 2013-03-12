@@ -13,24 +13,17 @@
 ;; make quil-cljs
   :plugins [[lein-cljsbuild "0.3.0"]]
   :source-paths ["src"]
-  :hooks [leiningen.cljsbuild]
 
   :repl-options {
     :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]
   }
 
   :cljsbuild {
-    :repl-listen-port 9000
-    :repl-launch-commands
-    {"chrome" ["chromium-browser"
-               "http://localhost:3000"
-               :stdout ".repl-chrome-out"
-               :stderr ".repl-chrome-err"]}
     :builds
       [{:id "main"
         :source-paths ["src-cljs"]
         :compiler
-        {:output-to "resources/public/js/cljs.js"
+        {:output-to "resources/public/js/main.js"
          :optimizations :simple
          :pretty-print true}
         :jar true}]}

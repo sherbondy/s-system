@@ -1,0 +1,8 @@
+{
+  "name": "s-system",
+  "version": "0.0.1",
+  "main": ["./resources/public/js/main.js", 
+           "./resources/public/css/style.css"],
+  "dependencies": {
+    "threejs": "0.0.0"
+  }

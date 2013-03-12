@@ -12,17 +12,15 @@
 ;; (def brepl (cljs.repl.browser/repl-env :port 9000))
 ;; (cemerick.piggieback/cljs-repl :repl-env (doto brepl cljs.repl/-setup))
 
-(repl/connect "http://localhost:9000/repl")
+;; (repl/connect "http://localhost:9000/repl")
 
-(.log js/console "Hello there.")n
+(.log js/console "Hello there.")
 
-;; core from l-system-fun
-
-(str gram/axial-tree-a)
+(str gram/axial-tree-c)
 
 ;; have slider to transition between memoized production lengths
 (str (gen-commands gram/axial-tree-a 2))
 
-(def canvas (.getElementById js/document "canvas"))
+(def plant-canvas (.getElementById js/document "plants"))
 
-(d/display d/tree-c-applet canvas)
+(d/display d/tree-a-applet plant-canvas)

@@ -1,4 +1,5 @@
 target/
-.repl/*
-out/*
+.repl/
+out/
+components/
 .lein-repl-history

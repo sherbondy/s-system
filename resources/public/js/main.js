@@ -17981,9 +17981,8 @@ s_system.display.triangle_applet = cljs.core.ObjMap.fromObject(["\ufdd0'title", 
   return s_system.display.setup.call(null, s_system.core.gen_coords.call(null, s_system.grammars.sierpinski_triangle, cljs.core.ObjMap.fromObject(["\ufdd0'origin", "\ufdd0'n-productions", "\ufdd0'line-length", "\ufdd0'start-angle"], {"\ufdd0'origin":cljs.core.PersistentVector.fromArray([80, 360], !0), "\ufdd0'n-productions":6, "\ufdd0'line-length":4, "\ufdd0'start-angle":90})))
 }});
 s_system.client = {};
-clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
 console.log("Hello there.");
-cljs.core.str(s_system.grammars.axial_tree_a);
+cljs.core.str(s_system.grammars.axial_tree_c);
 cljs.core.str(s_system.core.gen_commands.call(null, s_system.grammars.axial_tree_a, 2));
-s_system.client.canvas = document.getElementById("canvas");
-s_system.display.display.call(null, s_system.display.tree_c_applet, s_system.client.canvas);
+s_system.client.plant_canvas = document.getElementById("plants");
+s_system.display.display.call(null, s_system.display.tree_a_applet, s_system.client.plant_canvas);
