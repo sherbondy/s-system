@@ -3,6 +3,8 @@ body {
   height: 100%;
   background: #fff;
   font-size: 32px;
+  margin: 0;
+  padding: 0;
 }
 
 .slide {
@@ -11,4 +13,9 @@ body {
 
 .slide.active {
   display: block;
+}
+
+.slide img {
+  display: block;
+  margin: 0 auto;
 }

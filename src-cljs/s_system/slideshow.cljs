@@ -5,7 +5,7 @@
   (:use [jayq.core :only [$]]))
 
 ;; fullscreen
-(def full-key 102)
+(def full-key 70)
 (def left-key 37)
 (def right-key 39)
 
@@ -31,11 +31,11 @@
 
 (jq/on ($ js/window) "keyup"
     (fn [e]
-      (condp = (.-which e)
+      (condp = (.-keyCode e)
         full-key  (fullscreen (aget ($ "body") 0))
         left-key  (prev-slide)
         right-key (next-slide)
-        false)))
+        (ju/log e))))
 
 (jm/ready
  (reset! current-slide 0))

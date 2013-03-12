@@ -14445,7 +14445,7 @@ jayq.core.ajax_m = cljs.core.ObjMap.fromObject(["\ufdd0:return", "\ufdd0:bind", 
   return jayq.core.done.call(null, jayq.core.ajax.call(null, a), b)
 }, "\ufdd0:zero":cljs.core.identity});
 s_system.slideshow = {};
-s_system.slideshow.full_key = 102;
+s_system.slideshow.full_key = 70;
 s_system.slideshow.left_key = 37;
 s_system.slideshow.right_key = 39;
 s_system.slideshow.fullscreen = function(a) {
@@ -14468,8 +14468,8 @@ s_system.slideshow.next_slide = function() {
   return cljs.core.deref.call(null, s_system.slideshow.current_slide) < jayq.core.$.call(null, ".slide").length - 1 ? cljs.core.swap_BANG_.call(null, s_system.slideshow.current_slide, cljs.core.inc) : null
 };
 jayq.core.on.call(null, jayq.core.$.call(null, window), "keyup", function(a) {
-  var b = cljs.core._EQ_, a = a.which;
-  return b.call(null, s_system.slideshow.full_key, a) ? s_system.slideshow.fullscreen.call(null, jayq.core.$.call(null, "body")[0]) : b.call(null, s_system.slideshow.left_key, a) ? s_system.slideshow.prev_slide.call(null) : b.call(null, s_system.slideshow.right_key, a) ? s_system.slideshow.next_slide.call(null) : !1
+  var b = cljs.core._EQ_, c = a.keyCode;
+  return b.call(null, s_system.slideshow.full_key, c) ? s_system.slideshow.fullscreen.call(null, jayq.core.$.call(null, "body")[0]) : b.call(null, s_system.slideshow.left_key, c) ? s_system.slideshow.prev_slide.call(null) : b.call(null, s_system.slideshow.right_key, c) ? s_system.slideshow.next_slide.call(null) : jayq.util.log.call(null, a)
 });
 jayq.core.document_ready.call(null, function() {
   return cljs.core.reset_BANG_.call(null, s_system.slideshow.current_slide, 0)
@@ -14586,6 +14586,5 @@ s_system.display.triangle_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", 
 }});
 s_system.main = {};
 jayq.core.document_ready.call(null, function() {
-  MathJax.Hub.Config(cljs.core.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0:displayAlign"], {"\ufdd0:displayAlign":"left"})));
   return jayq.util.log.call(null, "hi")
 });
