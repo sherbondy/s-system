@@ -57,44 +57,44 @@
 
   (binding [*canvas* canvas
             *ctx*    (.getContext canvas "2d")]
-    ((:setup applet))))
+    (setup ((:setup applet)))))
 
 (def tree-a-applet
   {:title "Axial Tree A"
-   :size [400 600]
-   :setup #(setup
-            (gen-coords-memo gram/axial-tree-a
-                        {:origin [200 600]
-                         :n-productions 4
-                         :line-length 6
-                         :start-angle 180}))})
+   :size [300 500]
+   :setup #(gen-coords-memo
+            gram/axial-tree-a
+            {:origin [150 500]
+             :n-productions 4
+             :line-length 6
+             :start-angle 180})})
 
 (def tree-c-applet
   {:title "Axial Tree C"
    :size [400 600]
-   :setup #(setup
-            (gen-coords-memo gram/axial-tree-c
-                        {:origin [200 600]
-                         :n-productions 4
-                         :line-length 6
-                         :start-angle 180}))})
+   :setup #(gen-coords-memo
+            gram/axial-tree-c
+            {:origin [200 600]
+             :n-productions 4
+             :line-length 6
+             :start-angle 180})})
 
 (def triangle-applet
   {:title "Sierpinski Triangle"
    :size [400 600]
-   :setup #(setup
-            (gen-coords-memo gram/sierpinski-triangle
-                        {:origin [80 360]
-                         :n-productions 6
-                         :line-length 4
-                         :start-angle 90}))})
+   :setup #(gen-coords-memo
+            gram/sierpinski-triangle
+            {:origin [80 360]
+             :n-productions 6
+             :line-length 4
+             :start-angle 90})})
 
 (defn hilbert-applet [n]
   {:title "Hilbert Curve"
    :size [200 200]
-   :setup #(setup
-            (gen-coords-memo gram/hilbert
-                        {:origin [4 4]
-                         :n-productions n
-                         :line-length 4
-                         :start-angle 0}))})
+   :setup #(gen-coords-memo
+            gram/hilbert
+            {:origin [4 4]
+             :n-productions n
+             :line-length 4
+             :start-angle 0})})

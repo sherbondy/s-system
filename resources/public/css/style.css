@@ -35,3 +35,21 @@ h1, h2 {
   float: right;
   width: 50%;
 }
+
+.center {
+  margin: 0 auto;
+}
+
+canvas {
+  display: block;
+}
+
+.hover {
+  opacity: 0;
+}
+.hover:hover {
+  opacity: 1;
+}
+.fixed {
+  position: fixed;
+}

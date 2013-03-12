@@ -14855,23 +14855,23 @@ s_system.display.display = function(a, b) {
   c = s_system.display._STAR_canvas_STAR_;
   e = s_system.display._STAR_ctx_STAR_;
   try {
-    return s_system.display._STAR_canvas_STAR_ = b, s_system.display._STAR_ctx_STAR_ = b.getContext("2d"), (new cljs.core.Keyword("\ufdd0:setup")).call(null, a).call(null)
+    return s_system.display._STAR_canvas_STAR_ = b, s_system.display._STAR_ctx_STAR_ = b.getContext("2d"), s_system.display.setup.call(null, (new cljs.core.Keyword("\ufdd0:setup")).call(null, a).call(null))
   }finally {
     s_system.display._STAR_ctx_STAR_ = e, s_system.display._STAR_canvas_STAR_ = c
   }
 };
-s_system.display.tree_a_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Axial Tree A", "\ufdd0:size":cljs.core.PersistentVector.fromArray([400, 600], !0), "\ufdd0:setup":function() {
-  return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.axial_tree_a, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180})))
+s_system.display.tree_a_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Axial Tree A", "\ufdd0:size":cljs.core.PersistentVector.fromArray([300, 500], !0), "\ufdd0:setup":function() {
+  return s_system.core.gen_coords_memo.call(null, s_system.grammars.axial_tree_a, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([150, 500], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180}))
 }});
 s_system.display.tree_c_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Axial Tree C", "\ufdd0:size":cljs.core.PersistentVector.fromArray([400, 600], !0), "\ufdd0:setup":function() {
-  return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.axial_tree_c, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180})))
+  return s_system.core.gen_coords_memo.call(null, s_system.grammars.axial_tree_c, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180}))
 }});
 s_system.display.triangle_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Sierpinski Triangle", "\ufdd0:size":cljs.core.PersistentVector.fromArray([400, 600], !0), "\ufdd0:setup":function() {
-  return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.sierpinski_triangle, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([80, 360], !0), "\ufdd0:n-productions":6, "\ufdd0:line-length":4, "\ufdd0:start-angle":90})))
+  return s_system.core.gen_coords_memo.call(null, s_system.grammars.sierpinski_triangle, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([80, 360], !0), "\ufdd0:n-productions":6, "\ufdd0:line-length":4, "\ufdd0:start-angle":90}))
 }});
 s_system.display.hilbert_applet = function(a) {
   return cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Hilbert Curve", "\ufdd0:size":cljs.core.PersistentVector.fromArray([200, 200], !0), "\ufdd0:setup":function() {
-    return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.hilbert, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([4, 4], !0), "\ufdd0:n-productions":a, "\ufdd0:line-length":4, "\ufdd0:start-angle":0})))
+    return s_system.core.gen_coords_memo.call(null, s_system.grammars.hilbert, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([4, 4], !0), "\ufdd0:n-productions":a, "\ufdd0:line-length":4, "\ufdd0:start-angle":0}))
   }})
 };
 s_system.main = {};
@@ -14890,14 +14890,43 @@ s_system.main.show_hilbert = function(a) {
     }, null)
   }.call(null, cljs.core.range.call(null, a))], !0)))
 };
-s_system.main.tangle = function() {
+s_system.main.tangle_hilbert = function() {
   return new Tangle(document, cljs.core.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0:initialize", "\ufdd0:update"], {"\ufdd0:initialize":function() {
     return this.productions = 1
   }, "\ufdd0:update":function() {
     return s_system.main.show_hilbert.call(null, this.productions)
   }})))
 };
+s_system.main.tree_applet = function(a, b, c) {
+  return cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Axial Tree A", "\ufdd0:size":cljs.core.PersistentVector.fromArray([300, 500], !0), "\ufdd0:setup":function() {
+    return s_system.core.gen_coords_memo.call(null, cljs.core.assoc.call(null, s_system.grammars.axial_tree_a, "\ufdd0:angle", a), cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([150, 500], !0), "\ufdd0:n-productions":c, "\ufdd0:line-length":b, "\ufdd0:start-angle":180}))
+  }})
+};
+s_system.main.draw_tree = function(a, b, c) {
+  var d = jayq.core.$.call(null, "#tree")[0];
+  return s_system.display.display.call(null, s_system.main.tree_applet.call(null, a, b, c), d)
+};
+s_system.main.tree_defaults = cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray(["angle", 22.3], !0), cljs.core.PersistentVector.fromArray(["len", 4], !0), cljs.core.PersistentVector.fromArray(["prods", 4], !0)], !0);
+s_system.main.tangle_tree = function() {
+  return new Tangle(jayq.core.$.call(null, "#finale")[0], cljs.core.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0:initialize", "\ufdd0:update"], {"\ufdd0:initialize":function() {
+    for(var a = cljs.core.seq.call(null, s_system.main.tree_defaults);;) {
+      if(a) {
+        var b = cljs.core.first.call(null, a), c = cljs.core.nth.call(null, b, 0, null), b = cljs.core.nth.call(null, b, 1, null);
+        this[c] = b;
+        a = cljs.core.next.call(null, a)
+      }else {
+        return null
+      }
+    }
+  }, "\ufdd0:update":function() {
+    var a = this;
+    return cljs.core.apply.call(null, s_system.main.draw_tree, cljs.core.map.call(null, function(b) {
+      return a[cljs.core.first.call(null, b)]
+    }, s_system.main.tree_defaults))
+  }})))
+};
 jayq.core.document_ready.call(null, function() {
   jayq.util.log.call(null, "hi");
-  return s_system.main.tangle.call(null)
+  s_system.main.tangle_hilbert.call(null);
+  return s_system.main.tangle_tree.call(null)
 });

@@ -5,7 +5,7 @@
     
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/tangle/TangleKit/TangleKit.css"></script>
+    <link rel="stylesheet" href="/tangle/TangleKit/TangleKit.css">
   
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/three.js"></script>
@@ -79,15 +79,71 @@
           </figure>
         </div>
         <div class="right">
-          <canvas id="hilbert" width="200" height="200">
-          </canvas>
-          <div id="hilbert-prods">
-          </div>
+          <canvas id="hilbert" width="200" height="200"></canvas>
+          <div id="hilbert-prods"></div>
+        </div>
+      </div>
+        
+      <div class="slide">
+        <h1>Long strings don't look like trees...</h1>
+        <div class="left">
+          <h2>Grammar to Graphics</h2>
+          <figure>
+            \begin{equation}
+            "F" = \uparrow \\
+            "-" = rotate(CCW) \\
+            "+" = rotate(CW)
+            \end{equation}
+          </figure>
+        </div>
+        
+        <div class="right">
+          <h2>Turtle Geometry</h2>
+          <img src="/img/hilbert.png" width="50%" height="auto">
+        </div>
+      </div>
+        
+      <div class="slide">
+        <h1>Brackets = Stack</h1>
+        <div class="left">
+          <h2>Push and Pop the Turtle</h2>
+          <figure>
+            \begin{equation}
+            "[" = push \\
+            "]" = pop \\
+            \end{equation}
+          </figure>
+        </div>
+        
+        <div class="right">
+          <h2>Example Grammar</h2>
+          <figure>
+            \begin{equation}            
+            p_0 : F \\
+            p_1 : F \rightarrow F[+F]F[-F]F
+            \end{equation}
+          </figure>
+        </div>
       </div>
       
-      <div class="slide">
-        <h1>That doesn't look like a tree...</h1>
+      <div class="slide" id="finale">
+        <h1>The Grand Finale</h1>
+        
+        <div class="left hover fixed">
+          <p>Branch Angle: 
+            <span data-var="angle" data-min="0.1" data-max="90.0" class="TKAdjustableNumber"> degrees</span>
+          </p>
+          <p>Segment Length:
+            <span data-var="len" data-min="1" data-max="8" class="TKAdjustableNumber"> units</span>
+          </p>
+          <p>
+            <span data-var="prods" data-min="1" data-max="6" class="TKAdjustableNumber"> productions</span>
+          </p>
+        </div>
+        
+        <canvas id="tree" class="center"></canvas>
       </div>
     </div>
+    
   </body>
 </html>
