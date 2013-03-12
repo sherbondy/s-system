@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Intuition Talk: L-Systems</title>
+    
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/tangle/TangleKit/TangleKit.css"></script>
+  
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/three.js"></script>
     <script type="text/javascript" src="/mathjax/MathJax.js?config=default"></script>
+    <script type="text/javascript" src="/tangle/Tangle.js"></script>
+    <script type="text/javascript" src="/tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="/tangle/TangleKit/TangleKit.js"></script>
+    <script type="text/javascript" src="/tangle/TangleKit/BVTouchable.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <script type='text/javascript' id='lt_ws' src='http://localhost:8833/socket.io/lighttable/ws.js'></script>
     <script type="text/x-mathjax-config">
@@ -21,11 +29,11 @@
       <div class="slide active">
         <figure>
           \begin{equation}
-          p_0 : A(100, \omega_0) \\
-          p_1 : A(s, \omega) : s \geq min \rightarrow \\
-            \hspace16ex!(\omega)F(s) \\
-            \hspace16ex[+(\alpha_1) / (\phi_1) A (s * r_1, \omega * q^{e})] \\
-            \hspace16ex[+(\alpha_2) / (\phi_2) A (s * r_2, \omega * (1-q)^{e})]
+            p_0 : A(100, \omega_0) \\
+            p_1 : A(s, \omega) : \hspace3ex s \geq min \rightarrow \\
+              \hspace16ex!(\omega)F(s) \\
+              \hspace16ex[+(\alpha_1) / (\phi_1) A (s * r_1, \omega * q^{e})] \\
+              \hspace16ex[+(\alpha_2) / (\phi_2) A (s * r_2, \omega * (1-q)^{e})]
           \end{equation}
         </figure>
       </div>
@@ -36,6 +44,49 @@
       
       <div class="slide">
         <img src="/img/maple.png" width="auto" height="100%">
+      </div>
+      
+      <div class="slide">
+        <h1>L-Systems</h1>
+        <div class="left">
+          <h2>Start String (Axiom)</h2>
+          <figure>
+            $$A$$            
+          </figure>
+        </div>
+        <div class="right">
+          <h2>Production Rules</h2>
+          <figure>
+            \begin{equation}
+              A \rightarrow - B F + A F A + F B - \\
+              B \rightarrow + A F - B F B - F A +
+            \end{equation}
+          </figure>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <h1>Production Whats?</h1>
+        <div class="left">
+          <p>Show <span data-var="productions" data-min="1" data-max="4" class="TKAdjustableNumber"> productions</span></p>
+          
+          <h2>Production Rules</h2>
+          <figure>
+            \begin{equation}
+              A \rightarrow - B F + A F A + F B - \\
+              B \rightarrow + A F - B F B - F A +
+            \end{equation}
+          </figure>
+        </div>
+        <div class="right">
+          <canvas id="hilbert" width="200" height="200">
+          </canvas>
+          <div id="hilbert-prods">
+          </div>
+      </div>
+      
+      <div class="slide">
+        <h1>That doesn't look like a tree...</h1>
       </div>
     </div>
   </body>

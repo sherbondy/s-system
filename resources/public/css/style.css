@@ -5,10 +5,12 @@ body {
   font-size: 32px;
   margin: 0;
   padding: 0;
+  line-height: 1;
 }
 
 .slide {
   display:none;
+  padding: 32px;
 }
 
 .slide.active {
@@ -18,4 +20,18 @@ body {
 .slide img {
   display: block;
   margin: 0 auto;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.left {
+  float: left;
+  width: 50%;
+}
+
+.right {
+  float: right;
+  width: 50%;
 }

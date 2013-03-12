@@ -12787,15 +12787,21 @@ s_system.grammars.dragon_curve = cljs.core.ObjMap.fromObject(["\ufdd0:constants"
 "\ufdd0:right"])});
 s_system.grammars.sierpinski_triangle = cljs.core.ObjMap.fromObject(["\ufdd0:constants", "\ufdd0:start", "\ufdd0:rules", "\ufdd0:angle", "\ufdd0:cmd-map"], {"\ufdd0:constants":cljs.core.PersistentHashSet.fromArray(["+", "-"]), "\ufdd0:start":cljs.core.PersistentVector.fromArray(["A"], !0), "\ufdd0:rules":cljs.core.PersistentArrayMap.fromArrays(["A", "B"], ["B-A-B", "A+B+A"]), "\ufdd0:angle":60, "\ufdd0:cmd-map":cljs.core.PersistentArrayMap.fromArrays(["A", "B", "+", "-"], ["\ufdd0:forward", "\ufdd0:forward", 
 "\ufdd0:left", "\ufdd0:right"])});
+s_system.grammars.hilbert = cljs.core.ObjMap.fromObject(["\ufdd0:constants", "\ufdd0:start", "\ufdd0:rules", "\ufdd0:angle", "\ufdd0:cmd-map"], {"\ufdd0:constants":cljs.core.PersistentHashSet.fromArray(["F", "+", "-"]), "\ufdd0:start":cljs.core.PersistentVector.fromArray(["A"], !0), "\ufdd0:rules":cljs.core.PersistentArrayMap.fromArrays(["A", "B"], ["-BF+AFA+FB-", "+AF-BFB-FA+"]), "\ufdd0:angle":90, "\ufdd0:cmd-map":cljs.core.PersistentArrayMap.fromArrays(["A", "B", "F", "+", "-"], ["\ufdd0:forward", 
+"\ufdd0:forward", "\ufdd0:forward", "\ufdd0:right", "\ufdd0:left"])});
 s_system.core = {};
 s_system.core._STAR_env_STAR_ = cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 200], !0), "\ufdd0:n-productions":1, "\ufdd0:line-length":7, "\ufdd0:start-angle":180});
 s_system.core._STAR_grammar_STAR_ = s_system.grammars.axial_tree_a;
 s_system.core.apply_rules = function(a, b) {
   return cljs.core.apply.call(null, cljs.core.str, cljs.core.replace.call(null, (new cljs.core.Keyword("\ufdd0:rules")).call(null, a), b))
 };
-s_system.core.gen_commands = function(a, b) {
-  return cljs.core.nth.call(null, cljs.core.iterate.call(null, cljs.core.partial.call(null, s_system.core.apply_rules, a), (new cljs.core.Keyword("\ufdd0:start")).call(null, a)), b)
+s_system.core.command_list = function(a) {
+  return cljs.core.iterate.call(null, cljs.core.partial.call(null, s_system.core.apply_rules, a), (new cljs.core.Keyword("\ufdd0:start")).call(null, a))
 };
+s_system.core.gen_commands = function(a, b) {
+  return cljs.core.nth.call(null, s_system.core.command_list.call(null, a), b)
+};
+s_system.core.gen_cmds_memo = cljs.core.memoize.call(null, s_system.core.gen_commands);
 s_system.core.new_position = function(a, b) {
   var c = Math.PI / 180, d = (new cljs.core.Keyword("\ufdd0:angle")).call(null, a);
   return cljs.core.ObjMap.fromObject(["\ufdd0:angle", "\ufdd0:x", "\ufdd0:y"], {"\ufdd0:angle":d, "\ufdd0:x":Math.sin.call(null, d * c) * b + (new cljs.core.Keyword("\ufdd0:x")).call(null, a), "\ufdd0:y":Math.cos.call(null, d * c) * b + (new cljs.core.Keyword("\ufdd0:y")).call(null, a)})
@@ -12816,12 +12822,13 @@ s_system.core.gen_coords = function(a, b) {
     s_system.core._STAR_grammar_STAR_ = a;
     s_system.core._STAR_env_STAR_ = b;
     var e = cljs.core.ObjMap.fromObject(["\ufdd0:x", "\ufdd0:y", "\ufdd0:angle"], {"\ufdd0:x":cljs.core.first.call(null, (new cljs.core.Keyword("\ufdd0:origin")).call(null, b)), "\ufdd0:y":cljs.core.second.call(null, (new cljs.core.Keyword("\ufdd0:origin")).call(null, b)), "\ufdd0:angle":(new cljs.core.Keyword("\ufdd0:start-angle")).call(null, b)}), f = cljs.core.ObjMap.fromObject(["\ufdd0:current-pos", "\ufdd0:stack", "\ufdd0:lines"], {"\ufdd0:current-pos":e, "\ufdd0:stack":cljs.core.List.EMPTY, 
-    "\ufdd0:lines":cljs.core.PersistentVector.EMPTY}), g = s_system.core.gen_commands.call(null, a, (new cljs.core.Keyword("\ufdd0:n-productions")).call(null, b));
+    "\ufdd0:lines":cljs.core.PersistentVector.EMPTY}), g = s_system.core.gen_cmds_memo.call(null, a, (new cljs.core.Keyword("\ufdd0:n-productions")).call(null, b));
     return(new cljs.core.Keyword("\ufdd0:lines")).call(null, cljs.core.reduce.call(null, s_system.core.exec_cmd, f, g))
   }finally {
     s_system.core._STAR_env_STAR_ = d, s_system.core._STAR_grammar_STAR_ = c
   }
 };
+s_system.core.gen_coords_memo = cljs.core.memoize.call(null, s_system.core.gen_coords);
 var jayq = {util:{}};
 jayq.util.wait = function(a, b) {
   return setTimeout(b, a)
@@ -14453,6 +14460,7 @@ s_system.slideshow.fullscreen = function(a) {
 };
 s_system.slideshow.current_slide = cljs.core.atom.call(null, 0);
 cljs.core.add_watch.call(null, s_system.slideshow.current_slide, "\ufdd0:transition", function(a, b, c, d) {
+  location.hash = d;
   for(a = cljs.core.seq.call(null, cljs.core.PersistentVector.fromArray([c, d], !0));;) {
     if(a) {
       b = cljs.core.first.call(null, a), jayq.core.toggle_class.call(null, jayq.core.$.call(null, ".slide").eq(b), "active"), a = cljs.core.next.call(null, a)
@@ -14471,9 +14479,286 @@ jayq.core.on.call(null, jayq.core.$.call(null, window), "keyup", function(a) {
   var b = cljs.core._EQ_, c = a.keyCode;
   return b.call(null, s_system.slideshow.full_key, c) ? s_system.slideshow.fullscreen.call(null, jayq.core.$.call(null, "body")[0]) : b.call(null, s_system.slideshow.left_key, c) ? s_system.slideshow.prev_slide.call(null) : b.call(null, s_system.slideshow.right_key, c) ? s_system.slideshow.next_slide.call(null) : jayq.util.log.call(null, a)
 });
+s_system.slideshow.hash_no = function(a) {
+  try {
+    var b = parseInt(cljs.core.subs.call(null, a, 1), 10);
+    return 0 <= b ? b : 0
+  }catch(c) {
+    if(cljs.core.instance_QMARK_.call(null, Exception, c)) {
+      return 0
+    }
+    throw c;
+  }
+};
 jayq.core.document_ready.call(null, function() {
-  return cljs.core.reset_BANG_.call(null, s_system.slideshow.current_slide, 0)
+  var a = s_system.slideshow.hash_no.call(null, location.hash);
+  return cljs.core.reset_BANG_.call(null, s_system.slideshow.current_slide, a)
 });
+var dommy = {core:{}};
+dommy.core.append_BANG_ = function(a, b) {
+  a.appendChild(b);
+  return a
+};
+dommy.core.prepend_BANG_ = function(a, b) {
+  a.insertBefore(b, a.firstChild);
+  return a
+};
+dommy.core.remove_BANG_ = function(a) {
+  var b = a.parentNode;
+  b.removeChild(a);
+  return b
+};
+dommy.core.replace_BANG_ = function(a, b) {
+  a.parentNode.replaceChild(b, a);
+  return b
+};
+dommy.core.class_match_QMARK_ = function(a, b, c) {
+  var d;
+  d = (d = 0 === c) ? d : " " === a.charAt(c - 1);
+  return cljs.core.truth_(d) ? (d = a.length, b = c + b.length, b <= d ? (c = b === d) ? c : " " === a.charAt(b) : null) : d
+};
+dommy.core.class_index = function(a, b) {
+  for(var c = 0;;) {
+    if(c = a.indexOf(b, c), 0 <= c) {
+      if(cljs.core.truth_(dommy.core.class_match_QMARK_.call(null, a, b, c))) {
+        return c
+      }
+      c += b.length
+    }else {
+      return null
+    }
+  }
+};
+dommy.core.has_class_QMARK_ = function(a, b) {
+  var c = a.classList;
+  if(cljs.core.truth_(c)) {
+    return c.contains(b)
+  }
+  c = dommy.core.class_index.call(null, a.className, b);
+  return cljs.core.truth_(c) ? 0 <= c : null
+};
+dommy.core.add_class_BANG_ = function(a, b) {
+  var c = a.classList;
+  if(cljs.core.truth_(c)) {
+    return c.add(b)
+  }
+  c = a.className;
+  return cljs.core.truth_(dommy.core.class_index.call(null, c, b)) ? null : a.className = "" === c ? b : [cljs.core.str(c), cljs.core.str(" "), cljs.core.str(b)].join("")
+};
+dommy.core.remove_class_str = function(a, b) {
+  for(var c = a;;) {
+    var d = c.length, e = dommy.core.class_index.call(null, c, b);
+    if(cljs.core.truth_(e)) {
+      var f = e + b.length, c = "" + cljs.core.str(f < d ? [cljs.core.str(c.substring(0, e)), cljs.core.str(c.substr(f + 1))].join("") : c.substring(0, e - 1))
+    }else {
+      return c
+    }
+  }
+};
+dommy.core.remove_class_BANG_ = function(a, b) {
+  var c = a.classList;
+  if(cljs.core.truth_(c)) {
+    return c.remove(b)
+  }
+  var c = a.className, d = dommy.core.remove_class_str.call(null, c, cljs.core.name.call(null, b));
+  return c === d ? null : a.className = d
+};
+dommy.core.toggle_class_BANG_ = function() {
+  var a = null, b = function(b, c) {
+    var f = b.classList;
+    return cljs.core.truth_(f) ? f.toggle(c) : a.call(null, b, c, cljs.core.not.call(null, dommy.core.has_class_QMARK_.call(null, b, c)))
+  }, c = function(a, b, c) {
+    return cljs.core.truth_(c) ? dommy.core.add_class_BANG_.call(null, a, b) : dommy.core.remove_class_BANG_.call(null, a, b)
+  }, a = function(a, e, f) {
+    switch(arguments.length) {
+      case 2:
+        return b.call(this, a, e);
+      case 3:
+        return c.call(this, a, e, f)
+    }
+    throw Error("Invalid arity: " + arguments.length);
+  };
+  a.cljs$lang$arity$2 = b;
+  a.cljs$lang$arity$3 = c;
+  return a
+}();
+dommy.core.selector = function selector(b) {
+  return cljs.core.coll_QMARK_.call(null, b) ? clojure.string.join.call(null, " ", cljs.core.map.call(null, selector, b)) : cljs.core.truth_(function() {
+    var c = cljs.core.string_QMARK_.call(null, b);
+    return c ? c : cljs.core.keyword_QMARK_.call(null, b)
+  }()) ? cljs.core.name.call(null, b) : null
+};
+dommy.core.live_listener = function(a, b, c) {
+  return function(d) {
+    return 0 <= Array.prototype.slice.call(a.querySelectorAll(dommy.core.selector.call(null, b))).indexOf(d.target) ? c.call(null, d) : null
+  }
+};
+dommy.core.listen_BANG_ = function() {
+  var a = null, b = function(a, b, c) {
+    return cljs.core.truth_(a.addEventListener) ? a.addEventListener(cljs.core.name.call(null, b), c) : a.attachEvent(cljs.core.name.call(null, b), c)
+  }, c = function(b, c, f, g) {
+    return a.call(null, b, c, dommy.core.live_listener.call(null, b, f, g))
+  }, a = function(a, e, f, g) {
+    switch(arguments.length) {
+      case 3:
+        return b.call(this, a, e, f);
+      case 4:
+        return c.call(this, a, e, f, g)
+    }
+    throw Error("Invalid arity: " + arguments.length);
+  };
+  a.cljs$lang$arity$3 = b;
+  a.cljs$lang$arity$4 = c;
+  return a
+}();
+dommy.template = {};
+dommy.template.PElement = {};
+dommy.template._elem = function(a) {
+  var b;
+  b = a ? a.dommy$template$PElement$_elem$arity$1 : a;
+  if(b) {
+    return a.dommy$template$PElement$_elem$arity$1(a)
+  }
+  b = dommy.template._elem[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = dommy.template._elem._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "PElement.-elem", a);
+  }
+  return b.call(null, a)
+};
+dommy.template.style_str = function(a) {
+  return clojure.string.join.call(null, " ", cljs.core.map.call(null, function(a) {
+    var c = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
+    return[cljs.core.str(cljs.core.name.call(null, c)), cljs.core.str(":"), cljs.core.str(cljs.core.name.call(null, a)), cljs.core.str(";")].join("")
+  }, a))
+};
+dommy.template.add_attr_BANG_ = function(a, b, c) {
+  if(cljs.core.truth_(c)) {
+    if(cljs.core._EQ_.call(null, "\ufdd0:style", b)) {
+      return a.setAttribute(cljs.core.name.call(null, b), dommy.template.style_str.call(null, c))
+    }
+    if(cljs.core._EQ_.call(null, "\ufdd0:classes", b)) {
+      for(b = cljs.core.seq.call(null, c);;) {
+        if(b) {
+          c = cljs.core.first.call(null, b), dommy.core.add_class_BANG_.call(null, a, c), b = cljs.core.next.call(null, b)
+        }else {
+          return null
+        }
+      }
+    }else {
+      return cljs.core._EQ_.call(null, "\ufdd0:class", b) ? dommy.core.add_class_BANG_.call(null, a, c) : a.setAttribute(cljs.core.name.call(null, b), c)
+    }
+  }else {
+    return null
+  }
+};
+dommy.template.next_css_index = function(a, b) {
+  var c = a.indexOf("#", b), d = a.indexOf(".", b), e = Math.min(c, d);
+  return 0 > e ? Math.max(c, d) : e
+};
+dommy.template.base_element = function(a) {
+  var b = cljs.core.name.call(null, a), c = dommy.template.next_css_index.call(null, b, 0), a = 0 < c ? b.substring(0, c) : 0 === c ? "div" : b, a = document.createElement(a);
+  if(0 <= c) {
+    for(b = b.substring(c);;) {
+      var c = dommy.template.next_css_index.call(null, b, 1), d = 0 <= c ? b.substring(0, c) : b, e = d.charAt(0);
+      if(cljs.core._EQ_.call(null, "#", e)) {
+        a.setAttribute("id", d.substring(1))
+      }else {
+        if(cljs.core._EQ_.call(null, ".", e)) {
+          dommy.core.add_class_BANG_.call(null, a, d.substring(1))
+        }else {
+          throw Error([cljs.core.str("No matching clause: "), cljs.core.str(d.charAt(0))].join(""));
+        }
+      }
+      if(0 <= c) {
+        b = b.substring(c)
+      }else {
+        break
+      }
+    }
+  }
+  return a
+};
+dommy.template.node = void 0;
+dommy.template.throw_unable_to_make_node = function(a) {
+  throw[cljs.core.str("Don't know how to make node from: "), cljs.core.str(cljs.core.pr_str.call(null, a))].join("");
+};
+dommy.template.__GT_document_fragment = function() {
+  var a = null, b = function(b) {
+    return a.call(null, document.createDocumentFragment(), b)
+  }, c = function(b, c) {
+    if(cljs.core.truth_(c ? cljs.core.truth_(cljs.core.truth_(null) ? null : c.dommy$template$PElement$) ? !0 : c.cljs$lang$protocol_mask$partition$ ? !1 : cljs.core.type_satisfies_.call(null, dommy.template.PElement, c) : cljs.core.type_satisfies_.call(null, dommy.template.PElement, c))) {
+      return b.appendChild(dommy.template._elem.call(null, c)), b
+    }
+    if(cljs.core.seq_QMARK_.call(null, c)) {
+      for(var f = cljs.core.seq.call(null, c);;) {
+        if(f) {
+          var g = cljs.core.first.call(null, f);
+          a.call(null, b, g);
+          f = cljs.core.next.call(null, f)
+        }else {
+          break
+        }
+      }
+      return b
+    }
+    return dommy.template.throw_unable_to_make_node.call(null, c)
+  }, a = function(a, e) {
+    switch(arguments.length) {
+      case 1:
+        return b.call(this, a);
+      case 2:
+        return c.call(this, a, e)
+    }
+    throw Error("Invalid arity: " + arguments.length);
+  };
+  a.cljs$lang$arity$1 = b;
+  a.cljs$lang$arity$2 = c;
+  return a
+}();
+dommy.template.__GT_node_like = function(a) {
+  return cljs.core.truth_(a ? cljs.core.truth_(cljs.core.truth_(null) ? null : a.dommy$template$PElement$) ? !0 : a.cljs$lang$protocol_mask$partition$ ? !1 : cljs.core.type_satisfies_.call(null, dommy.template.PElement, a) : cljs.core.type_satisfies_.call(null, dommy.template.PElement, a)) ? dommy.template._elem.call(null, a) : dommy.template.__GT_document_fragment.call(null, a)
+};
+dommy.template.compound_element = function(a) {
+  for(var b = dommy.template.base_element.call(null, cljs.core.first.call(null, a)), c = cljs.core.map_QMARK_.call(null, cljs.core.second.call(null, a)) ? cljs.core.second.call(null, a) : null, a = cljs.core.drop.call(null, cljs.core.truth_(c) ? 2 : 1, a), c = cljs.core.seq.call(null, c);;) {
+    if(c) {
+      var d = cljs.core.first.call(null, c), e = cljs.core.nth.call(null, d, 0, null), d = cljs.core.nth.call(null, d, 1, null);
+      dommy.template.add_attr_BANG_.call(null, b, e, d);
+      c = cljs.core.next.call(null, c)
+    }else {
+      break
+    }
+  }
+  b.appendChild(dommy.template.__GT_node_like.call(null, a));
+  return b
+};
+String.prototype.dommy$template$PElement$ = !0;
+String.prototype.dommy$template$PElement$_elem$arity$1 = function(a) {
+  return cljs.core.keyword_QMARK_.call(null, a) ? dommy.template.base_element.call(null, a) : document.createTextNode("" + cljs.core.str(a))
+};
+dommy.template.PElement.number = !0;
+dommy.template._elem.number = function(a) {
+  return document.createTextNode("" + cljs.core.str(a))
+};
+Text.prototype.dommy$template$PElement$ = !0;
+Text.prototype.dommy$template$PElement$_elem$arity$1 = function(a) {
+  return a
+};
+cljs.core.PersistentVector.prototype.dommy$template$PElement$ = !0;
+cljs.core.PersistentVector.prototype.dommy$template$PElement$_elem$arity$1 = function(a) {
+  return dommy.template.compound_element.call(null, a)
+};
+HTMLElement.prototype.dommy$template$PElement$ = !0;
+HTMLElement.prototype.dommy$template$PElement$_elem$arity$1 = function(a) {
+  return a
+};
+dommy.template.node = function(a) {
+  return cljs.core.truth_(a ? cljs.core.truth_(cljs.core.truth_(null) ? null : a.dommy$template$PElement$) ? !0 : a.cljs$lang$protocol_mask$partition$ ? !1 : cljs.core.type_satisfies_.call(null, dommy.template.PElement, a) : cljs.core.type_satisfies_.call(null, dommy.template.PElement, a)) ? dommy.template._elem.call(null, a) : dommy.template.throw_unable_to_make_node.call(null, a)
+};
+dommy.template.html__GT_nodes = function(a) {
+  var b = document.createElement("div");
+  b.insertAdjacentHTML("beforeend", a);
+  return Array.prototype.slice.call(b.childNodes)
+};
 s_system.display = {};
 s_system.display._STAR_ctx_STAR_ = null;
 s_system.display._STAR_canvas_STAR_ = null;
@@ -14554,7 +14839,7 @@ s_system.display.plot_system = function(a) {
 s_system.display.setup = function(a) {
   s_system.display.background.call(null, 255, 255, 255);
   s_system.display.stroke_color.call(null, 0, 160, 0);
-  s_system.display.stroke_weight.call(null, 1.4);
+  s_system.display.stroke_weight.call(null, 2);
   return s_system.display.plot_system.call(null, a)
 };
 s_system.display.display = function(a, b) {
@@ -14576,15 +14861,43 @@ s_system.display.display = function(a, b) {
   }
 };
 s_system.display.tree_a_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Axial Tree A", "\ufdd0:size":cljs.core.PersistentVector.fromArray([400, 600], !0), "\ufdd0:setup":function() {
-  return s_system.display.setup.call(null, s_system.core.gen_coords.call(null, s_system.grammars.axial_tree_a, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180})))
+  return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.axial_tree_a, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180})))
 }});
 s_system.display.tree_c_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Axial Tree C", "\ufdd0:size":cljs.core.PersistentVector.fromArray([400, 600], !0), "\ufdd0:setup":function() {
-  return s_system.display.setup.call(null, s_system.core.gen_coords.call(null, s_system.grammars.axial_tree_c, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180})))
+  return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.axial_tree_c, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([200, 600], !0), "\ufdd0:n-productions":4, "\ufdd0:line-length":6, "\ufdd0:start-angle":180})))
 }});
 s_system.display.triangle_applet = cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Sierpinski Triangle", "\ufdd0:size":cljs.core.PersistentVector.fromArray([400, 600], !0), "\ufdd0:setup":function() {
-  return s_system.display.setup.call(null, s_system.core.gen_coords.call(null, s_system.grammars.sierpinski_triangle, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([80, 360], !0), "\ufdd0:n-productions":6, "\ufdd0:line-length":4, "\ufdd0:start-angle":90})))
+  return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.sierpinski_triangle, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([80, 360], !0), "\ufdd0:n-productions":6, "\ufdd0:line-length":4, "\ufdd0:start-angle":90})))
 }});
+s_system.display.hilbert_applet = function(a) {
+  return cljs.core.ObjMap.fromObject(["\ufdd0:title", "\ufdd0:size", "\ufdd0:setup"], {"\ufdd0:title":"Hilbert Curve", "\ufdd0:size":cljs.core.PersistentVector.fromArray([200, 200], !0), "\ufdd0:setup":function() {
+    return s_system.display.setup.call(null, s_system.core.gen_coords_memo.call(null, s_system.grammars.hilbert, cljs.core.ObjMap.fromObject(["\ufdd0:origin", "\ufdd0:n-productions", "\ufdd0:line-length", "\ufdd0:start-angle"], {"\ufdd0:origin":cljs.core.PersistentVector.fromArray([4, 4], !0), "\ufdd0:n-productions":a, "\ufdd0:line-length":4, "\ufdd0:start-angle":0})))
+  }})
+};
 s_system.main = {};
+s_system.main.show_hilbert = function(a) {
+  var b = jayq.core.$.call(null, "#hilbert")[0], c = s_system.core.command_list.call(null, s_system.grammars.hilbert);
+  s_system.display.display.call(null, s_system.display.hilbert_applet.call(null, a), b);
+  return jayq.core.$.call(null, "#hilbert-prods").html(dommy.template.node.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0:ul", function e(a) {
+    return new cljs.core.LazySeq(null, !1, function() {
+      for(;;) {
+        if(cljs.core.seq.call(null, a)) {
+          var b = cljs.core.first.call(null, a);
+          return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0:li", "" + cljs.core.str(cljs.core.nth.call(null, c, b))], !0), e.call(null, cljs.core.rest.call(null, a)))
+        }
+        return null
+      }
+    }, null)
+  }.call(null, cljs.core.range.call(null, a))], !0)))
+};
+s_system.main.tangle = function() {
+  return new Tangle(document, cljs.core.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0:initialize", "\ufdd0:update"], {"\ufdd0:initialize":function() {
+    return this.productions = 1
+  }, "\ufdd0:update":function() {
+    return s_system.main.show_hilbert.call(null, this.productions)
+  }})))
+};
 jayq.core.document_ready.call(null, function() {
-  return jayq.util.log.call(null, "hi")
+  jayq.util.log.call(null, "hi");
+  return s_system.main.tangle.call(null)
 });

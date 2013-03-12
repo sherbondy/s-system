@@ -1,5 +1,5 @@
 (ns s-system.display
-  (:use [s-system.core :only [gen-coords]])
+  (:use [s-system.core :only [gen-coords-memo]])
   (:require [clojure.string :as str]
             [s-system.grammars :as gram]))
 
@@ -48,7 +48,7 @@
 (defn- setup [coordinates]
   (background 255 255 255)
   (stroke-color 0 160 0)
-  (stroke-weight 1.4)
+  (stroke-weight 2)
   (plot-system coordinates))
 
 (defn display [applet canvas]
@@ -63,7 +63,7 @@
   {:title "Axial Tree A"
    :size [400 600]
    :setup #(setup
-            (gen-coords gram/axial-tree-a
+            (gen-coords-memo gram/axial-tree-a
                         {:origin [200 600]
                          :n-productions 4
                          :line-length 6
@@ -73,7 +73,7 @@
   {:title "Axial Tree C"
    :size [400 600]
    :setup #(setup
-            (gen-coords gram/axial-tree-c
+            (gen-coords-memo gram/axial-tree-c
                         {:origin [200 600]
                          :n-productions 4
                          :line-length 6
@@ -83,8 +83,18 @@
   {:title "Sierpinski Triangle"
    :size [400 600]
    :setup #(setup
-            (gen-coords gram/sierpinski-triangle
+            (gen-coords-memo gram/sierpinski-triangle
                         {:origin [80 360]
                          :n-productions 6
                          :line-length 4
                          :start-angle 90}))})
+
+(defn hilbert-applet [n]
+  {:title "Hilbert Curve"
+   :size [200 200]
+   :setup #(setup
+            (gen-coords-memo gram/hilbert
+                        {:origin [4 4]
+                         :n-productions n
+                         :line-length 4
+                         :start-angle 0}))})

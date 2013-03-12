@@ -4,3 +4,6 @@
 [submodule "comp/clojurescript"]
 	path = comp/clojurescript
 	url = git://github.com/clojure/clojurescript.git
+[submodule "resources/public/tangle"]
+	path = resources/public/tangle
+	url = git@github.com:worrydream/Tangle.git

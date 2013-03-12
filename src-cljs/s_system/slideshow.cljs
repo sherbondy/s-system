@@ -16,6 +16,7 @@
 
 (add-watch current-slide :transition 
   (fn [k r o n]
+    (set! (.-hash js/location) n)
     (doseq [num [o n]]
       (-> ($ ".slide")
         (.eq num)
@@ -37,5 +38,13 @@
         right-key (next-slide)
         (ju/log e))))
 
+(defn hash-no [loc-hash]
+  (try 
+    (let [num (js/parseInt (subs loc-hash 1) 10)]
+      (if (>= num 0)
+        num 0))
+    (catch js/Exception e 0)))
+
 (jm/ready
- (reset! current-slide 0))
+ (let [n (hash-no (.-hash js/location))]
+   (reset! current-slide n)))

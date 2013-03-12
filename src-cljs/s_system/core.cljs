@@ -12,11 +12,13 @@
   (apply str
          (replace (:rules grammar) pattern)))
 
+(defn command-list [grammar]
+  (iterate (partial apply-rules grammar) (:start grammar)))
+
 (defn gen-commands [grammar n]
-  (nth
-    (iterate
-      (partial apply-rules grammar) (:start grammar))
-    n))
+  (nth (command-list grammar) n))
+
+(def gen-cmds-memo (memoize gen-commands))
 
 (defn- new-position [turtle length]
   (let [deg   (/ Math/PI 180)
@@ -62,6 +64,8 @@
                   :y (second (:origin env))
                   :angle (:start-angle env)}
           turtle {:current-pos origin :stack '() :lines []}
-          commands (gen-commands grammar (:n-productions env))]
+          commands (gen-cmds-memo grammar (:n-productions env))]
       (:lines
         (reduce exec-cmd turtle commands)))))
+
+(def gen-coords-memo (memoize gen-coords))

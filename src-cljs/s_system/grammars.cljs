@@ -57,3 +57,14 @@
                                       \B :forward
                                       \+ :left
                                       \- :right}})
+
+(def hilbert {:constants #{\F \+ \-}
+              :start     [\A]
+              :rules     {\A "-BF+AFA+FB-"
+                          \B "+AF-BFB-FA+"}
+              :angle     90
+              :cmd-map   {\A :forward
+                          \B :forward
+                          \F :forward
+                          \+ :right
+                          \- :left}})
