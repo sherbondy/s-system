@@ -54,3 +54,14 @@ canvas {
 .fixed {
   position: fixed;
 }
+
+#turtle, #brackets {
+  display: block;
+  margin: 0 auto;
+}
+
+#turtle-canvas {
+  position: absolute;
+  margin-left: 160px;
+  z-index: 2;
+}

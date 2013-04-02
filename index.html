@@ -4,17 +4,18 @@
     <title>Intuition Talk: L-Systems</title>
     
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="tangle/TangleKit/TangleKit.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/tangle/TangleKit/TangleKit.css">
   
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-    <script type="text/javascript" src="tangle/Tangle.js"></script>
-    <script type="text/javascript" src="tangle/TangleKit/mootools.js"></script>
-    <script type="text/javascript" src="tangle/TangleKit/TangleKit.js"></script>
-    <script type="text/javascript" src="tangle/TangleKit/BVTouchable.js"></script>
-    <script type="text/javascript" src="js/leap.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+    <script type="text/javascript" src="/tangle/Tangle.js"></script>
+    <script type="text/javascript" src="/tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="/tangle/TangleKit/TangleKit.js"></script>
+    <script type="text/javascript" src="/tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="/js/leap.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         jax: ["input/TeX", "output/HTML-CSS"],
@@ -26,35 +27,38 @@
   <body>
     <div id="slides">
       <div class="slide active">
+        <h1>Teaching Turtles to Draw Trees</h1>
+        <img id="turtle" src="/img/turtle.png">
+        <h2>Ethan Sherbondy</h2>
+      </div>
+      
+      <div class="slide">
         <figure>
-          \begin{equation}
-            p_0 : A(100, \omega_0) \\
-            p_1 : A(s, \omega) : \hspace3ex s \geq min \rightarrow \\
-              \hspace16ex!(\omega)F(s) \\
-              \hspace16ex[+(\alpha_1) / (\phi_1) A (s * r_1, \omega * q^{e})] \\
-              \hspace16ex[+(\alpha_2) / (\phi_2) A (s * r_2, \omega * (1-q)^{e})]
+          \begin{equation}            
+          p_0 : F \\
+          p_1 : F \rightarrow F[+F]F[-F]F
           \end{equation}
         </figure>
       </div>
       
       <div class="slide">
-        <img src="img/trees.png" width="auto" height="100%">
+        <img src="/img/trees.png" width="auto" height="100%">
       </div>
       
       <div class="slide">
-        <img src="img/maple.png" width="auto" height="100%">
+        <img src="/img/maple.png" width="auto" height="100%">
       </div>
       
       <div class="slide">
-        <h1>L-Systems</h1>
+        <h1>Plants Made of Text?</h1>
         <div class="left">
-          <h2>Start String (Axiom)</h2>
+          <h2>The Seed</h2>
           <figure>
             $$A$$            
           </figure>
         </div>
         <div class="right">
-          <h2>Production Rules</h2>
+          <h2>Growing Rules</h2>
           <figure>
             \begin{equation}
               A \rightarrow - B F + A F A + F B - \\
@@ -65,11 +69,11 @@
       </div>
       
       <div class="slide">
-        <h1>Production Whats?</h1>
+        <h1>Growing our Text</h1>
         <div class="left">
-          <p>Show <span data-var="productions" data-min="1" data-max="4" class="TKAdjustableNumber"> productions</span></p>
+          <p>Show <span data-var="productions" data-min="1" data-max="4" class="TKAdjustableNumber"> time steps</span></p>
           
-          <h2>Production Rules</h2>
+          <h2>Growing Rules</h2>
           <figure>
             \begin{equation}
               A \rightarrow - B F + A F A + F B - \\
@@ -84,9 +88,9 @@
       </div>
         
       <div class="slide">
-        <h1>Long strings don't look like trees...</h1>
+        <h1>Text doesn't look like trees...</h1>
         <div class="left">
-          <h2>Grammar to Graphics</h2>
+          <h2>Text to Pictures</h2>
           <figure>
             \begin{equation}
             "F" = \uparrow \\
@@ -98,31 +102,42 @@
         
         <div class="right">
           <h2>Turtle Geometry</h2>
-          <img src="img/hilbert.png" width="50%" height="auto">
+          <canvas id="turtle-canvas" width="320px" height="320px"></canvas>
+          <img src="/img/hilbert.png" width="320px" height="320px">
         </div>
       </div>
         
       <div class="slide">
-        <h1>Brackets = Stack</h1>
+        <h1>Brackets make Branches</h1>
         <div class="left">
-          <h2>Push and Pop the Turtle</h2>
+          <h2>Save and Restore the Turtle Location</h2>
           <figure>
             \begin{equation}
-            "[" = push \\
-            "]" = pop \\
+            "[" = save \\
+            "]" = restore \\
             \end{equation}
           </figure>
         </div>
         
         <div class="right">
-          <h2>Example Grammar</h2>
+          <h2>An Example</h2>
           <figure>
             \begin{equation}            
-            p_0 : F \\
-            p_1 : F \rightarrow F[+F]F[-F]F
+            seed : F \\
+            grow : F \rightarrow F[+F]F[-F]F
             \end{equation}
           </figure>
         </div>
+      </div>
+      
+      <div class="slide">
+        <figure>
+          \begin{equation}            
+          grow : F \rightarrow F[+F]F[-F]F
+          \end{equation}
+        </figure>
+      
+        <canvas id="brackets" width="480px" height="480px"></canvas>
       </div>
       
       <div class="slide" id="finale">
@@ -136,7 +151,7 @@
             <span data-var="len" data-min="1" data-max="8" class="TKAdjustableNumber"> units</span>
           </p>
           <p>
-            <span data-var="prods" data-min="1" data-max="6" class="TKAdjustableNumber"> productions</span>
+            <span data-var="prods" data-min="1" data-max="6" class="TKAdjustableNumber"> timesteps</span>
           </p>
         </div>
         
