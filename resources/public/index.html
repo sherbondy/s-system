@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/tangle/TangleKit/TangleKit.css">
   
     <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/three.js"></script>
     <script type="text/javascript" src="/mathjax/MathJax.js?config=default"></script>
     <script type="text/javascript" src="/tangle/Tangle.js"></script>
     <script type="text/javascript" src="/tangle/TangleKit/mootools.js"></script>
     <script type="text/javascript" src="/tangle/TangleKit/TangleKit.js"></script>
     <script type="text/javascript" src="/tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="/js/leap.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type='text/javascript' id='lt_ws' src='http://localhost:8833/socket.io/lighttable/ws.js'></script>
+    <script type='text/javascript' id='lt_ws' src='http://localhost:39990/socket.io/lighttable/ws.js'></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         jax: ["input/TeX", "output/HTML-CSS"],
@@ -27,13 +27,17 @@
   <body>
     <div id="slides">
       <div class="slide active">
+        <h1>Teaching Turtles to Draw Trees</h1>
+        <div class="left">
+          <img id="turtle" src="/img/turtle.png">
+        </div>
+      </div>
+      
+      <div class="slide">
         <figure>
-          \begin{equation}
-            p_0 : A(100, \omega_0) \\
-            p_1 : A(s, \omega) : \hspace3ex s \geq min \rightarrow \\
-              \hspace16ex!(\omega)F(s) \\
-              \hspace16ex[+(\alpha_1) / (\phi_1) A (s * r_1, \omega * q^{e})] \\
-              \hspace16ex[+(\alpha_2) / (\phi_2) A (s * r_2, \omega * (1-q)^{e})]
+          \begin{equation}            
+          p_0 : F \\
+          p_1 : F \rightarrow F[+F]F[-F]F
           \end{equation}
         </figure>
       </div>
@@ -47,7 +51,7 @@
       </div>
       
       <div class="slide">
-        <h1>L-Systems</h1>
+        <h1>Plants Made of Text</h1>
         <div class="left">
           <h2>Starting Text (the Seed)</h2>
           <figure>
@@ -66,11 +70,11 @@
       </div>
       
       <div class="slide">
-        <h1>Production Whats?</h1>
+        <h1>Growing our Text</h1>
         <div class="left">
-          <p>Show <span data-var="productions" data-min="1" data-max="4" class="TKAdjustableNumber"> productions</span></p>
+          <p>Show <span data-var="productions" data-min="1" data-max="4" class="TKAdjustableNumber"> time steps</span></p>
           
-          <h2>Production Rules</h2>
+          <h2>Growing Rules</h2>
           <figure>
             \begin{equation}
               A \rightarrow - B F + A F A + F B - \\
@@ -99,7 +103,8 @@
         
         <div class="right">
           <h2>Turtle Geometry</h2>
-          <img src="/img/hilbert.png" width="50%" height="auto">
+          <canvas id="turtle-canvas" width="320px" height="320px"></canvas>
+          <img src="/img/hilbert.png" width="320px" height="320px">
         </div>
       </div>
         

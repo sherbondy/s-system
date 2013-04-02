@@ -54,3 +54,9 @@ canvas {
 .fixed {
   position: fixed;
 }
+
+#turtle-canvas {
+  position: absolute;
+  margin-left: 160px;
+  z-index: 2;
+}

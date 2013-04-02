@@ -21,3 +21,5 @@
 (defn -main [& args]
   (defonce server
     (jetty/run-jetty #'app {:port 3000 :join? false})))
+
+;; (-main)

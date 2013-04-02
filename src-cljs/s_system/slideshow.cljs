@@ -8,11 +8,13 @@
 (def full-key 70)
 (def left-key 37)
 (def right-key 39)
+(def action-key 32)
 
 (defn fullscreen [e]
   (.webkitRequestFullScreen e))
 
 (def current-slide (atom 0))
+(def action-fn #())
 
 (add-watch current-slide :transition 
   (fn [k r o n]
@@ -33,9 +35,10 @@
 (jq/on ($ js/window) "keyup"
     (fn [e]
       (condp = (.-keyCode e)
-        full-key  (fullscreen (aget ($ "body") 0))
-        left-key  (prev-slide)
-        right-key (next-slide)
+        full-key   (fullscreen (aget ($ "body") 0))
+        left-key   (prev-slide)
+        right-key  (next-slide)
+        action-key (action-fn)
         (ju/log e))))
 
 (defn hash-no [loc-hash]

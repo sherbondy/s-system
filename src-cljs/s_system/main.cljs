@@ -56,7 +56,72 @@
                       (apply draw-tree (map #(aget this (first %))
                                          tree-defaults))))})))
 
+(comment
+  (defn setup-leap []
+    (.loop js/Leap
+      (fn [frame done]
+        (let [hands (.-hands frame)]
+          (log (.-length (.-pointables frame)))
+          (when (> (count hands) 0)
+            (log (aget (nth hands 0) "sphereRadius"))))))))
+
+(def turtle-slide 6)
+;; x, y, angle
+(def turtle-start [100 225 90])
+(def step-size 50)
+(def turtle-instrs [:f :- :f :- :f :+ :f :f :f :+ :f :+ :f :-
+                    :f :- :f :+ :f :+ :f :f :f :+ :f :- :f :- :f])
+(def current-step (atom 0))
+
+(def turtle (js/Image.))
+
+(defn load-turtle []
+  (aset turtle "src" "/img/turtle.png"))
+
+;; in degrees
+(defn deg-to-rad [deg] (/ (* deg Math/PI) 180))
+
+(defn rotate [ctx deg]
+  (.rotate ctx (deg-to-rad deg)))
+
+(defn update-turtle-pos [[x y rot] instr]
+  (case instr
+    :f [(+ x (* step-size (Math/sin (deg-to-rad rot))))
+        (- y (* step-size (Math/cos (deg-to-rad rot))))
+        rot]
+    :+ [x y (+ rot 90)]
+    :- [x y (- rot 90)]))
+
+(defn advance-turtle []
+  (when (<= @current-step (count turtle-instrs))
+    (let [canvas    (aget ($ "#turtle-canvas") 0)
+          ctx       (.getContext canvas "2d")
+          step      @current-step
+          [x y rot] (reduce update-turtle-pos 
+                            turtle-start
+                            (take step turtle-instrs))]
+      (log (str "x: " x ", y: " y ", rot: " rot))
+      (.clearRect ctx 0 0 (aget canvas "width") (aget canvas "height"))
+      
+      (when (> step 0)
+        (aset ctx "font" "bold 32px Arial")
+        (.fillText ctx 
+          (name (nth turtle-instrs (dec step))) 20 50))
+      
+      (.save ctx)
+      (.translate ctx x y)
+      (rotate ctx rot)
+      (.drawImage ctx turtle 0 0 50 50)
+      (.restore ctx)
+      (swap! current-step inc))))
+  
+(add-watch ss/current-slide :action
+ (fn [k r o n]
+   (when (= n turtle-slide)
+     (set! ss/action-fn #(advance-turtle)))))
+
 (jm/ready
   (log "hi")
   (tangle-hilbert)
-  (tangle-tree))
+  (tangle-tree)
+  (load-turtle))
