@@ -14824,6 +14824,10 @@ s_system.main.tangle_tree = function() {
     }, s_system.main.tree_defaults))
   }})))
 };
+s_system.main.controller = new Leap.Controller(cljs.core.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'enableGestures"], {"\ufdd0'enableGestures":!0})));
+s_system.main.region = new Leap.UI.Region([0, 200, 100], [300, 400, 300]);
+s_system.main.controller.addStep(new Leap.UI.Cursor);
+s_system.main.controller.connect();
 s_system.main.turtle_slide = 6;
 s_system.main.turtle_start = cljs.core.PersistentVector.fromArray([100, 225, 90], !0);
 s_system.main.step_size = 50;
@@ -14867,11 +14871,53 @@ s_system.main.advance_turtle = function() {
   }
   return null
 };
+s_system.main.branch_slide = 8;
+s_system.main.draw_branches = function(a) {
+  var b = jayq.core.$.call(null, "#brackets")[0], c = b.width, d = b.height, b = b.getContext("2d"), a = s_system.main.region.mapToXY(a, c, d);
+  b.clearRect(0, 0, c, d);
+  b.lineWidth = 32;
+  b.beginPath();
+  b.moveTo(240, 480);
+  b.lineTo(240, 360);
+  b.lineTo(320, 280);
+  b.moveTo(240, 360);
+  b.lineTo(240, 240);
+  b.lineTo(160, 160);
+  b.moveTo(240, 240);
+  b.lineTo(240, 120);
+  b.stroke();
+  b.font = "bold 48px Arial";
+  b.fillStyle = "green";
+  b.fillText("[", 230, 360);
+  b.fillText("[", 230, 240);
+  b.fillText("]", 310, 280);
+  b.fillText("]", 150, 160);
+  return b.drawImage(s_system.main.turtle, a[0], a[1], 50, 50)
+};
 cljs.core.add_watch.call(null, s_system.slideshow.current_slide, "\ufdd0'action", function(a, b, c, d) {
-  return cljs.core._EQ_.call(null, d, s_system.main.turtle_slide) ? s_system.slideshow.action_fn = function() {
+  cljs.core._EQ_.call(null, d, s_system.main.turtle_slide) && (s_system.slideshow.action_fn = function() {
     return s_system.main.advance_turtle.call(null)
+  });
+  return cljs.core._EQ_.call(null, d, s_system.main.branch_slide) ? s_system.slideshow.action_fn = function() {
+    return s_system.main.draw_branches.call(null, [240, 480])
   } : null
 });
+s_system.main.coord_diff = function(a) {
+  return cljs.core.nth.call(null, a.position, 0) - cljs.core.nth.call(null, a.startPosition, 0)
+};
+s_system.main.handle_swipe = function(a) {
+  a = s_system.main.coord_diff.call(null, a, 0);
+  return 20 < Math.abs.call(null, a) ? 0 < a ? s_system.slideshow.prev_slide.call(null) : s_system.slideshow.next_slide.call(null) : null
+};
+s_system.main.update_leap = function() {
+  var a = s_system.main.controller.frame(), b = a.gestures, c = a.cursorPosition;
+  cljs.core.truth_(function() {
+    var a = cljs.core._EQ_.call(null, cljs.core.deref.call(null, s_system.slideshow.current_slide), s_system.main.branch_slide);
+    return a ? c : a
+  }()) && s_system.main.draw_branches.call(null, c);
+  return 0 < cljs.core.count.call(null, b) && (a = cljs.core.nth.call(null, b, 0), jayq.util.log.call(null, a), cljs.core._EQ_.call(null, a.state, "stop")) ? (b = a.type, cljs.core._EQ_.call(null, "circle", b) ? s_system.slideshow.action_fn.call(null) : cljs.core._EQ_.call(null, "screenTap", b) ? s_system.slideshow.action_fn.call(null) : cljs.core._EQ_.call(null, "swipe", b) ? s_system.main.handle_swipe.call(null, a) : null) : null
+};
+s_system.main.controller.on("animationFrame", s_system.main.update_leap);
 jayq.core.document_ready.call(null, function() {
   jayq.util.log.call(null, "hi");
   s_system.main.tangle_hilbert.call(null);

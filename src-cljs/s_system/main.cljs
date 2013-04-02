@@ -56,6 +56,12 @@
                       (apply draw-tree (map #(aget this (first %))
                                          tree-defaults))))})))
 
+
+(def controller (new js/Leap.Controller (clj->js {:enableGestures true})))
+(def region (new js/Leap.UI.Region (array 0, 200, 100) (array 300 400 300)))
+(.addStep controller (new js/Leap.UI.Cursor))
+(.connect controller)
+
 (comment
   (defn setup-leap []
     (.loop js/Leap
@@ -114,11 +120,77 @@
       (.drawImage ctx turtle 0 0 100 100)
       (.restore ctx)
       (swap! current-step inc))))
+
+
+(def branch-slide 8)
+
+(defn draw-branches [cursor-pos]
+  (let [canvas   (aget ($ "#brackets") 0)
+        w        (.-width canvas)
+        h        (.-height canvas)
+        ctx      (.getContext canvas "2d")
+        position (.mapToXY region cursor-pos w h)]
+    (.clearRect ctx 0 0 w h)
+    (aset ctx "lineWidth" 32)
+    (.beginPath ctx)
+    (.moveTo ctx 240 480)
+    (.lineTo ctx 240 360)
+    (.lineTo ctx 320 280)
+    (.moveTo ctx 240 360)
+    (.lineTo ctx 240 240)
+    (.lineTo ctx 160 160)
+    (.moveTo ctx 240 240)
+    (.lineTo ctx 240 120)
+    (.stroke ctx)
+    
+    (aset ctx "font" "bold 48px Arial")
+    (aset ctx "fillStyle" "green")
+    (.fillText ctx "[" 230 360)
+    (.fillText ctx "[" 230 240)
+    (.fillText ctx "]" 310 280)
+    (.fillText ctx "]" 150 160)
+    
+    (.drawImage ctx turtle 
+                (aget position 0) (aget position 1) 50 50)))
   
 (add-watch ss/current-slide :action
  (fn [k r o n]
    (when (= n turtle-slide)
-     (set! ss/action-fn #(advance-turtle)))))
+     (set! ss/action-fn #(advance-turtle)))
+   (when (= n branch-slide)
+     (set! ss/action-fn #(draw-branches (array 240 480))))))
+
+
+(defn coord-diff [gesture i]
+  (- (nth (.-position gesture) 0)
+     (nth (.-startPosition gesture) 0)))
+
+(defn handle-swipe [gesture]
+  (let [x-diff (coord-diff gesture 0)]
+    (when (> (Math/abs x-diff) 20)
+      (if (> x-diff 0)
+        (ss/prev-slide)
+        (ss/next-slide)))))
+
+(defn update-leap []
+  (let [frame      (.frame controller)
+        gestures   (.-gestures frame)
+        cursor-pos (.-cursorPosition frame)]
+    
+    (when (and (= @ss/current-slide branch-slide) cursor-pos)
+      (draw-branches cursor-pos))
+    
+    (when (> (count gestures) 0)
+      (let [gesture (nth gestures 0)]
+        (log gesture)
+        (when (= (.-state gesture) "stop")
+          (case (.-type gesture)
+            "swipe"     (handle-swipe gesture)
+            "screenTap" (ss/action-fn)
+            "circle"    (ss/action-fn)
+            nil))))))
+
+(.on controller "animationFrame" update-leap)
 
 (jm/ready
   (log "hi")

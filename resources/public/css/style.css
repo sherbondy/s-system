@@ -55,7 +55,7 @@ canvas {
   position: fixed;
 }
 
-#turtle {
+#turtle, #brackets {
   display: block;
   margin: 0 auto;
 }
