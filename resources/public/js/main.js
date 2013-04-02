@@ -2730,23 +2730,23 @@ cljs.core._hash["boolean"] = function(a) {
 cljs.core.IWithMeta["function"] = !0;
 cljs.core._with_meta["function"] = function(a, b) {
   return cljs.core.with_meta.call(null, function() {
-    if(void 0 === cljs.core.t3194) {
-      cljs.core.t3194 = {};
-      cljs.core.t3194 = function(a, b, c) {
+    if(void 0 === cljs.core.t3206) {
+      cljs.core.t3206 = {};
+      cljs.core.t3206 = function(a, b, c) {
         this.meta = a;
         this.f = b;
-        this.meta3195 = c;
+        this.meta3207 = c;
         this.cljs$lang$protocol_mask$partition1$ = 0;
         this.cljs$lang$protocol_mask$partition0$ = 393217
       };
-      cljs.core.t3194.cljs$lang$type = !0;
-      cljs.core.t3194.cljs$lang$ctorPrSeq = function() {
-        return cljs.core.list.call(null, "cljs.core/t3194")
+      cljs.core.t3206.cljs$lang$type = !0;
+      cljs.core.t3206.cljs$lang$ctorPrSeq = function() {
+        return cljs.core.list.call(null, "cljs.core/t3206")
       };
-      cljs.core.t3194.cljs$lang$ctorPrWriter = function(a, b) {
-        return cljs.core._write.call(null, b, "cljs.core/t3194")
+      cljs.core.t3206.cljs$lang$ctorPrWriter = function(a, b) {
+        return cljs.core._write.call(null, b, "cljs.core/t3206")
       };
-      var c = cljs.core.t3194.prototype, d = function(a, b) {
+      var c = cljs.core.t3206.prototype, d = function(a, b) {
         return cljs.core.apply.call(null, a.f, b)
       }, e = function(a, b) {
         var a = this, c = null;
@@ -2760,19 +2760,19 @@ cljs.core._with_meta["function"] = function(a, b) {
       };
       e.cljs$lang$arity$variadic = d;
       c.call = e;
-      cljs.core.t3194.prototype.apply = function(a, b) {
+      cljs.core.t3206.prototype.apply = function(a, b) {
         a = this;
         return a.call.apply(a, [a].concat(b.slice()))
       };
-      cljs.core.t3194.prototype.cljs$core$Fn$ = !0;
-      cljs.core.t3194.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-        return this.meta3195
+      cljs.core.t3206.prototype.cljs$core$Fn$ = !0;
+      cljs.core.t3206.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+        return this.meta3207
       };
-      cljs.core.t3194.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-        return new cljs.core.t3194(this.meta, this.f, b)
+      cljs.core.t3206.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+        return new cljs.core.t3206(this.meta, this.f, b)
       }
     }
-    return new cljs.core.t3194(b, a, null)
+    return new cljs.core.t3206(b, a, null)
   }(), b)
 };
 cljs.core.IMeta["function"] = !0;
@@ -14835,7 +14835,7 @@ s_system.main.turtle_instrs = cljs.core.PersistentVector.fromArray("\ufdd0'f \uf
 s_system.main.current_step = cljs.core.atom.call(null, 0);
 s_system.main.turtle = new Image;
 s_system.main.load_turtle = function() {
-  return s_system.main.turtle.src = "/img/turtle.png"
+  return s_system.main.turtle.src = jayq.core.$.call(null, "#turtle").attr("src")
 };
 s_system.main.deg_to_rad = function(a) {
   return a * Math.PI / 180

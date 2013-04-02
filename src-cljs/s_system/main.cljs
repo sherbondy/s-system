@@ -82,7 +82,7 @@
 (def turtle (js/Image.))
 
 (defn load-turtle []
-  (aset turtle "src" "/img/turtle.png"))
+  (aset turtle "src" (.attr ($ "#turtle") "src")))
 
 ;; in degrees
 (defn deg-to-rad [deg] (/ (* deg Math/PI) 180))
