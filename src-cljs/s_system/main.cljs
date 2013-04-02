@@ -111,7 +111,7 @@
       (.save ctx)
       (.translate ctx x y)
       (rotate ctx rot)
-      (.drawImage ctx turtle 0 0 50 50)
+      (.drawImage ctx turtle 0 0 100 100)
       (.restore ctx)
       (swap! current-step inc))))
   

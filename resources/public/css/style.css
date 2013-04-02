@@ -55,6 +55,11 @@ canvas {
   position: fixed;
 }
 
+#turtle {
+  display: block;
+  margin: 0 auto;
+}
+
 #turtle-canvas {
   position: absolute;
   margin-left: 160px;

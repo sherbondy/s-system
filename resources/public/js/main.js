@@ -14861,7 +14861,7 @@ s_system.main.advance_turtle = function() {
     b.save();
     b.translate(e, f);
     s_system.main.rotate.call(null, b, d);
-    b.drawImage(s_system.main.turtle, 0, 0, 50, 50);
+    b.drawImage(s_system.main.turtle, 0, 0, 100, 100);
     b.restore();
     return cljs.core.swap_BANG_.call(null, s_system.main.current_step, cljs.core.inc)
   }
