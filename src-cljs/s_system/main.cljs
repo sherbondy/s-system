@@ -124,7 +124,7 @@
 
 (def branch-slide 8)
 
-(defn draw-branches [cursor-pos]
+(defn draw-branches [cursor-pos angle]
   (let [canvas   (aget ($ "#brackets") 0)
         w        (.-width canvas)
         h        (.-height canvas)
@@ -149,16 +149,19 @@
     (.fillText ctx "[" 230 240)
     (.fillText ctx "]" 310 280)
     (.fillText ctx "]" 150 160)
-    
+   
+    (.save ctx)
+    (.rotate ctx angle)
     (.drawImage ctx turtle 
-                (aget position 0) (aget position 1) 50 50)))
+                (aget position 0) (aget position 1) 50 50)
+    (.restore ctx)))
   
 (add-watch ss/current-slide :action
  (fn [k r o n]
    (when (= n turtle-slide)
      (set! ss/action-fn #(advance-turtle)))
    (when (= n branch-slide)
-     (set! ss/action-fn #(draw-branches (array 240 480))))))
+     (set! ss/action-fn #(draw-branches (array 240 480) 0)))))
 
 
 (defn coord-diff [gesture i]
@@ -172,13 +175,21 @@
         (ss/prev-slide)
         (ss/next-slide)))))
 
+(defn calc-angle [[x y z]]
+  0)
+
+;; (calc-angle [1 1 1])
+
 (defn update-leap []
-  (let [frame      (.frame controller)
-        gestures   (.-gestures frame)
-        cursor-pos (.-cursorPosition frame)]
-    
+  (let [frame         (.frame controller)
+        gestures      (.-gestures frame)
+        cursor-pos    (.-cursorPosition frame)
+        pointer       (nth (.-pointables frame) 0 false)
+        pointer-angle (if pointer 
+                        (calc-angle (.-direction pointer))
+                        0)]
     (when (and (= @ss/current-slide branch-slide) cursor-pos)
-      (draw-branches cursor-pos))
+      (draw-branches cursor-pos pointer-angle))
     
     (when (> (count gestures) 0)
       (let [gesture (nth gestures 0)]
