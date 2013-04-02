@@ -1,3 +1,6 @@
-[submodule "tangle"]
-	path = tangle
-	url = git://github.com:worrydream/Tangle.git
+[submodule "resources/public/mathjax"]
+	path = resources/public/mathjax
+	url = git://github.com/mathjax/MathJax.git
+[submodule "resources/public/tangle"]
+	path = resources/public/tangle
+	url = git@github.com:worrydream/Tangle.git

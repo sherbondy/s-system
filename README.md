@@ -12,11 +12,11 @@ The current version is a hastily-assembled copy of Scott Lowe's [l-system-fun](h
 1. Support for general context-sensitive (k, l)-systems
 2. Support for Stochastic L-systems
 3. Parametric L-systems
-4. 3D turtle graphics: I can start with a simple wrapper atop three.js and branch off if I get any kooky ideas.
+4. 3D turtle graphics: I can start with a simple wraper atop three.js and branch off if I get any kooky ideas.
 
 ## Concerns
 
-1. Performance, performance, performance. Doing more than 5 or so recursive steps on some of the 0L tree systems already consumes a ton of computation time. I'm sure this can be improved drastically by being careful about what parts of ClojureScript I use. This will require continual profiling, and will likely involve delegating bits of the project out to hand-written JavaScript with potential for macrology fun. Memoization will likely prove crucial for guaranteeing responsive time-scrubbing through a system. As far as generating the strings goes, this can actually be delegated to Web Workers. And, should the drawing code prove to be the bottleneck, I'll experiment with making everything (2D and 3D) use WebGL.
+1. Performance, performance, performance. Doing more than 5 or so recursive steps on some of the 0L tree systems already consumes a ton of computation time. I'm sure this can be improved drastically by being careful about what parts of ClojureScript I use. This will require continual profiling, and will likely involve delegating bits of the project out to hand-written JavaScript with potential for macrology fun. Memoization will likely prove crucial for guaranteeing responsive time-scrubbing through a system.
 
 ## Learnability/Explorability
 
@@ -26,11 +26,11 @@ If the timing works out, this whole system might find itself wrapped up inside o
 
 ## Why ClojureScript, Why the Browser?
 
-Hypertext is a powerful idea. Making this project live on the web makes certain extensions natural and straightforward. E.g. sharing your creations over the Internet, embedding them in other web-pages or as components in games becomes trivial. Further, this opens up the possibility of offloading work (e.g. Ray-tracing) to other computers. All of these things are certainly achievable with other tools, but this seems to me to be the most natural way to edge towards the vision of the virtual laboratory.
+Hypertext is a powerful idea. Making this project live on the web makes certain extensions natural and straightforward. E.g. sharing your creations over the internet, embedding them in other web-pages or as components in games becomes trivial. Further, this opens up the possibility of offloading work (e.g. Raytracing) to other computers. All of these things are certainly achievable with other tools, but this seems to me to be the most natural way to edge towards the vision of the virtual laboratory.
 
 ## Inspiration/Reference
 
-Tons of people on the Internet are fascinated by L-systems. It's easy to see why: you can produce incredibly organic, aesthetically appealing results with just a few hours work. That said, there are hundreds, maybe thousands of reference L-system implementations of varying degrees of completeness. I should take heed of and respect these works and draw inspiration from them when appropriate. Below I'll maintain a list of all implementations and writings that have (directly or indirectly) influenced the design of this system:
+Tons of people on the internet are fascinated by L-systems. It's easy to see why: you can produce incredibly organic, aesthetically appealing results with just a few hours work. That said, there are hundreds, maybe thousands of reference L-system implementations of varying degrees of completeness. I should take heed of and respect these works and draw inspiration from them when appropriate. Below I'll maintain a list of all implementations and writings that have (directly or indirectly) influenced the design of this system:
 
 ### Implementations
 - L-system-fun
@@ -51,9 +51,9 @@ L-systems + Logic Programming = Profit?
 
 I'm sure someone has toyed with this idea, but what if you *evolved* an L-system? Randomly mutate the production rules themselves (this is different from Stochastic L-systems!) each generation, and have some sort of metric for fitness, e.g. height, branching factor, flower yield, etc.
 
-This idea touches on something that's been brewing in my mind for a while. Can you teach a computer what beauty is? Or, posed another way, can you use machine-learning to determine what our human minds (in the aggregate) discern as beauty? Can visual beauty be quantified? Implementation would be the same as the above paragraph, but the fitness condition would be human preference.
+This idea touches on something that's been brewing in my mind for a while. Can you teach a computer what beauty is? Or, posed another way, can you use machine-learning to determine what our human minds (in the aggregrate) discern as beauty? Can visual beauty be quantified? Implementation would be the same as the above paragraph, but the fitness condition would be human preference.
 
-With sufficient realism (ray-tracing on a server), maybe we could teach a computer how to render, say, flowers, or entire plants, starting from very simple axioms. Wouldn't that be something?
+With sufficient realism (raytracing on a server), maybe we could teach a computer how to render, say, flowers, or entire plants, starting from very simple axioms. Wouldn't that be something?
 
 That's enough waxing philosophic for now.
 
